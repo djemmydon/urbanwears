@@ -40,7 +40,7 @@ export default function ProductDetail() {
     if (loading) {
         return (
             <div className="max-w-7xl mx-auto px-6 py-12">
-                <div className="grid lg:grid-cols-2 gap-12 animate-pulse">
+                <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 animate-pulse">
                     <div className="aspect-[4/4.2] bg-gray-200 dark:bg-zinc-800 rounded-3xl" />
                     <div className="space-y-6">
                         <div className="h-10 bg-gray-200 dark:bg-zinc-800 rounded-2xl w-3/4" />
@@ -92,15 +92,15 @@ export default function ProductDetail() {
     };
 
     return (
-        <div className="max-w-7xl mx-auto px-6 py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-10">
             <Link
                 href="/"
-                className="inline-flex items-center gap-2 text-sm mb-10 hover:text-(--accent-hex) transition-colors"
+                className="inline-flex items-center gap-2 text-sm mb-6 sm:mb-8 hover:text-(--accent-hex) transition-colors"
             >
                 <ArrowLeft size={18} /> Back to Shop
             </Link>
 
-            <div className="grid lg:grid-cols-2 gap-14">
+            <div className="grid lg:grid-cols-2 gap-8 lg:gap-14">
                 {/* Images — real photos when available, 3D viewer as fallback */}
                 {product.images && product.images.length > 0 ? (
                     <ImageCarousel
@@ -114,37 +114,37 @@ export default function ProductDetail() {
                     />
                 )}
 
-                <div className="space-y-8">
+                <div className="space-y-6 sm:space-y-8">
                     {/* Title + Actions */}
-                    <div className="flex justify-between items-start gap-4">
-                        <div>
-                            <p className="text-sm text-gray-500 font-medium mb-1">
+                    <div>
+                        <div className="flex justify-between items-start gap-3 mb-1">
+                            <p className="text-xs sm:text-sm text-gray-500 font-medium uppercase tracking-wider">
                                 {product.category}
                             </p>
-                            <h1 className="font-display text-4xl lg:text-5xl font-semibold tracking-tight leading-tight">
-                                {product.name}
-                            </h1>
+                            <div className="flex gap-2 shrink-0">
+                                <button
+                                    onClick={() =>
+                                        inWishlist
+                                            ? removeFromWishlist(product.id)
+                                            : addToWishlist(product)
+                                    }
+                                    className={`p-2.5 sm:p-3 rounded-2xl border transition-all ${inWishlist ? "bg-red-50 border-red-200 dark:bg-red-900/20 dark:border-red-800" : "border-gray-200 dark:border-zinc-700 hover:border-red-300"}`}
+                                >
+                                    <Heart
+                                        className={`w-4 h-4 sm:w-5 sm:h-5 ${inWishlist ? "fill-red-500 text-red-500" : "text-gray-500"}`}
+                                    />
+                                </button>
+                                <button
+                                    onClick={handleShare}
+                                    className="p-2.5 sm:p-3 rounded-2xl border border-gray-200 dark:border-zinc-700 hover:border-gray-400 transition-all"
+                                >
+                                    <Share2 className="w-4 h-4 sm:w-5 sm:h-5 text-gray-500" />
+                                </button>
+                            </div>
                         </div>
-                        <div className="flex gap-2 mt-1">
-                            <button
-                                onClick={() =>
-                                    inWishlist
-                                        ? removeFromWishlist(product.id)
-                                        : addToWishlist(product)
-                                }
-                                className={`p-3 rounded-2xl border transition-all ${inWishlist ? "bg-red-50 border-red-200 dark:bg-red-900/20 dark:border-red-800" : "border-gray-200 dark:border-zinc-700 hover:border-red-300"}`}
-                            >
-                                <Heart
-                                    className={`w-5 h-5 ${inWishlist ? "fill-red-500 text-red-500" : "text-gray-500"}`}
-                                />
-                            </button>
-                            <button
-                                onClick={handleShare}
-                                className="p-3 rounded-2xl border border-gray-200 dark:border-zinc-700 hover:border-gray-400 transition-all"
-                            >
-                                <Share2 className="w-5 h-5 text-gray-500" />
-                            </button>
-                        </div>
+                        <h1 className="font-display text-2xl sm:text-3xl lg:text-5xl font-semibold tracking-tight leading-tight">
+                            {product.name}
+                        </h1>
                     </div>
 
                     {/* Rating */}
@@ -166,18 +166,17 @@ export default function ProductDetail() {
                     </div>
 
                     {/* Price */}
-                    <div className="flex items-baseline gap-4">
-                        <span className="text-4xl font-bold">
+                    <div className="flex flex-wrap items-baseline gap-3">
+                        <span className="text-3xl sm:text-4xl font-bold">
                             ₦{product.price}
                         </span>
                         {originalPrice && (
                             <>
-                                <span className="line-through text-gray-400 text-xl">
+                                <span className="line-through text-gray-400 text-lg sm:text-xl">
                                     ₦{originalPrice}
                                 </span>
-                                <span className="bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 text-sm font-semibold px-3 py-1 rounded-full">
-                                    Save ₦
-                                    {(originalPrice - product.price).toFixed(0)}
+                                <span className="bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 text-xs sm:text-sm font-semibold px-3 py-1 rounded-full">
+                                    Save ₦{(originalPrice - product.price).toFixed(0)}
                                 </span>
                             </>
                         )}
@@ -220,7 +219,7 @@ export default function ProductDetail() {
                     {/* Add to Cart */}
                     <button
                         onClick={handleAddToCart}
-                        className="w-full py-5 bg-black dark:bg-white text-white dark:text-black rounded-2xl font-bold text-lg hover:bg-(--accent-hex) hover:text-black active:scale-[0.98] transition-all"
+                        className="w-full py-4 sm:py-5 bg-black dark:bg-white text-white dark:text-black rounded-2xl font-bold text-base sm:text-lg hover:bg-(--accent-hex) hover:text-black active:scale-[0.98] transition-all"
                     >
                         Add to Cart
                     </button>

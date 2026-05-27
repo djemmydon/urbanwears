@@ -19,7 +19,7 @@ export default function ImageCarousel({
     const next = () => setCurrent((i) => (i + 1) % images.length);
 
     return (
-        <div className="space-y-4 sticky top-8">
+        <div className="space-y-4 lg:sticky lg:top-8">
             {/* Main image */}
             <div className="relative aspect-square rounded-3xl overflow-hidden bg-gray-50 dark:bg-zinc-800 group">
                 <Image
