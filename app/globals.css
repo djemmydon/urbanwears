@@ -1,0 +1,54 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ── Design Tokens ──────────────────────────────────────── */
+:root {
+    --accent: 255 140 0;
+    --card: 255 255 255;
+    --accent-hex: #ff8c00;
+    --bg: #ffffff;
+    --text: #000000;
+    --surface: 240 240 240;
+}
+
+.dark {
+    --accent: 255 140 0;
+    --card: 31 31 31;
+    --bg: #09090b;
+    --text: #ffffff;
+    --surface: 30 30 30;
+}
+
+/* ── Typography ─────────────────────────────────────────── */
+
+/* Register fonts in Tailwind v4 theme */
+@theme {
+    --font-sans: var(--font-jakarta), "Plus Jakarta Sans", system-ui, sans-serif;
+    --font-display: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
+}
+
+body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-jakarta), "Plus Jakarta Sans", system-ui, sans-serif;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Display font — applied explicitly to luxury headings */
+.font-display {
+    font-family: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
+}
+
+/* ── Mobile Optimizations ────────────────────────────────── */
+@media (max-width: 768px) {
+    .product-grid {
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    }
+
+    button,
+    .card {
+        min-height: 44px;
+    }
+}
