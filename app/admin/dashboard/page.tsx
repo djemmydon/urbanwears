@@ -281,8 +281,8 @@ export default function AdminDashboard() {
                                     boxShadow:
                                         "0 4px 24px rgba(0,0,0,0.08)",
                                 }}
-                                formatter={(v: number) => [
-                                    `₦${v.toFixed(2)}`,
+                                formatter={(v) => [
+                                    `₦${Number(v ?? 0).toFixed(2)}`,
                                     "Revenue",
                                 ]}
                             />
