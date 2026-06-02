@@ -4,17 +4,18 @@
 
 /* ── Design Tokens ──────────────────────────────────────── */
 :root {
-    --accent: 255 140 0;
+    --accent: 0 0 0;
     --card: 255 255 255;
-    --accent-hex: #ff8c00;
+    --accent-hex: #000000;
     --bg: #ffffff;
     --text: #000000;
     --surface: 240 240 240;
 }
 
 .dark {
-    --accent: 255 140 0;
+    --accent: 255 255 255;
     --card: 31 31 31;
+    --accent-hex: #ffffff;
     --bg: #09090b;
     --text: #ffffff;
     --surface: 30 30 30;

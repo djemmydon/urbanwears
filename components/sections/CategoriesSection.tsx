@@ -1,100 +1,156 @@
 "use client";
+
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
 
-const categories = [
+const CATEGORIES = [
     {
         name: "Polos",
         type: "polo",
         image: "/images/e1.png",
-        desc: "Polished, refined",
         tag: "Best Seller",
+        desc: "Refined & polished",
     },
     {
         name: "T-Shirts",
         type: "tshirt",
         image: "/images/e3.png",
-        desc: "Clean everyday wear",
         tag: "New In",
+        desc: "Clean everyday wear",
     },
     {
         name: "Hoodies",
         type: "hoodie",
         image: "/images/e2.png",
-        desc: "Relaxed & cosy",
         tag: "Trending",
+        desc: "Relaxed & premium",
     },
 ];
 
 export default function CategoriesSection() {
     return (
-        <section className="bg-(--bg)" id="shop">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 py-16 md:py-20">
-                {/* Section header */}
-                <div className="flex items-end justify-between mb-8">
+        <section id="shop" style={{ background: "#f7f7f7", padding: "72px 0" }}>
+            <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 24px" }}>
+                {/* Header */}
+                <div style={{ marginBottom: 40, display: "flex", alignItems: "flex-end", justifyContent: "space-between", flexWrap: "wrap", gap: 16 }}>
                     <div>
-                        <p className="text-[10px] tracking-[5px] uppercase text-(--accent-hex) font-semibold mb-2">
+                        <p style={{
+                            fontFamily: "'Barlow', sans-serif",
+                            fontSize: 10, letterSpacing: "0.4em",
+                            textTransform: "uppercase", color: "rgba(0,0,0,0.4)",
+                            marginBottom: 10,
+                        }}>
                             Browse
                         </p>
-                        <h2 className="text-3xl sm:text-4xl md:text-5xl font-black uppercase tracking-tight">
+                        <h2 style={{
+                            fontFamily: "'Bebas Neue', sans-serif",
+                            fontSize: "clamp(40px, 6vw, 60px)",
+                            letterSpacing: "0.03em", lineHeight: 0.9, color: "#000",
+                        }}>
                             Shop by Style
                         </h2>
                     </div>
                     <Link
-                        href="/#shop"
-                        className="hidden sm:inline-block text-xs font-bold uppercase tracking-[3px] underline underline-offset-4 hover:text-(--accent-hex) transition-colors"
+                        href="/shop"
+                        style={{
+                            fontFamily: "'Barlow', sans-serif",
+                            fontSize: 11, fontWeight: 500, letterSpacing: "0.2em",
+                            textTransform: "uppercase", textDecoration: "none",
+                            color: "#000", borderBottom: "1px solid rgba(0,0,0,0.3)",
+                            paddingBottom: 2,
+                        }}
                     >
-                        View All
+                        View All →
                     </Link>
                 </div>
 
-                {/* Category tiles */}
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                    {categories.map((cat, i) => (
-                        <motion.div
+                {/* Three-column tiles */}
+                <div style={{
+                    display: "grid",
+                    gridTemplateColumns: "repeat(3, 1fr)",
+                    gap: 12,
+                }}
+                    className="cat-grid"
+                >
+                    {CATEGORIES.map((cat, i) => (
+                        <Link
                             key={cat.type}
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: i * 0.1 }}
-                            className="group relative overflow-hidden"
-                            style={{ aspectRatio: "3/4" }}
+                            href={`/category/${cat.type}`}
+                            style={{ textDecoration: "none", color: "inherit", display: "block" }}
+                            className="cat-card-link"
                         >
-                            <Image
-                                src={cat.image}
-                                alt={cat.name}
-                                fill
-                                className="object-cover group-hover:scale-105 transition-transform duration-700"
-                                sizes="(max-width: 640px) 100vw, 33vw"
-                            />
-                            {/* Dark overlay */}
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent" />
-
-                            {/* Tag pill */}
-                            <div className="absolute top-4 left-4 bg-white text-black text-[10px] font-black uppercase tracking-widest px-3 py-1">
-                                {cat.tag}
+                            {/* Image box */}
+                            <div style={{
+                                position: "relative",
+                                aspectRatio: i === 1 ? "4/5" : "3/4",
+                                overflow: "hidden",
+                                background: "#e8e8e8",
+                                marginBottom: 14,
+                            }}>
+                                <Image
+                                    src={cat.image}
+                                    alt={cat.name}
+                                    fill
+                                    className="cat-img"
+                                    sizes="(max-width: 768px) 100vw, 33vw"
+                                    style={{ objectFit: "cover", transition: "transform 0.6s cubic-bezier(0.16,1,0.3,1)" }}
+                                />
+                                {/* Tag chip */}
+                                <div style={{
+                                    position: "absolute", top: 14, left: 14,
+                                    background: "#fff", color: "#000",
+                                    fontFamily: "'Barlow', sans-serif",
+                                    fontSize: 9, fontWeight: 600,
+                                    letterSpacing: "0.2em", textTransform: "uppercase",
+                                    padding: "5px 10px",
+                                }}>
+                                    {cat.tag}
+                                </div>
                             </div>
 
-                            {/* Content */}
-                            <div className="absolute bottom-0 left-0 right-0 p-6">
-                                <p className="text-white/60 text-[10px] uppercase tracking-[4px] mb-1 font-medium">
-                                    {cat.desc}
-                                </p>
-                                <h3 className="text-white text-3xl md:text-4xl font-black uppercase tracking-tight mb-5">
-                                    {cat.name}
-                                </h3>
-                                <Link
-                                    href={`/category/${cat.type}`}
-                                    className="inline-block bg-white text-black text-[10px] font-black uppercase tracking-[3px] px-7 py-3 hover:bg-[var(--accent-hex)] hover:text-white transition-all duration-200"
-                                >
-                                    Shop Now
-                                </Link>
+                            {/* Info row */}
+                            <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: 8 }}>
+                                <div>
+                                    <p style={{
+                                        fontFamily: "'Bebas Neue', sans-serif",
+                                        fontSize: 22, letterSpacing: "0.06em", color: "#000",
+                                        marginBottom: 4, lineHeight: 1,
+                                    }}>
+                                        {cat.name}
+                                    </p>
+                                    <p style={{
+                                        fontFamily: "'Barlow', sans-serif",
+                                        fontSize: 11, fontWeight: 300, color: "rgba(0,0,0,0.45)",
+                                        letterSpacing: "0.05em",
+                                    }}>
+                                        {cat.desc}
+                                    </p>
+                                </div>
+                                <span style={{
+                                    fontFamily: "'Barlow', sans-serif",
+                                    fontSize: 11, fontWeight: 500, letterSpacing: "0.15em",
+                                    textTransform: "uppercase", color: "#000",
+                                    borderBottom: "1px solid rgba(0,0,0,0.25)", paddingBottom: 1,
+                                    whiteSpace: "nowrap",
+                                }}>
+                                    Shop →
+                                </span>
                             </div>
-                        </motion.div>
+                        </Link>
                     ))}
                 </div>
             </div>
+
+            <style>{`
+                @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&display=swap');
+                .cat-card-link:hover .cat-img { transform: scale(1.05); }
+                @media (max-width: 640px) {
+                    .cat-grid { grid-template-columns: 1fr !important; gap: 24px !important; }
+                }
+                @media (min-width: 641px) and (max-width: 900px) {
+                    .cat-grid { grid-template-columns: repeat(2, 1fr) !important; }
+                }
+            `}</style>
         </section>
     );
 }

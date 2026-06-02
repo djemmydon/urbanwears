@@ -34,7 +34,7 @@ export default function SizeSelector({
                     totalStock === 0
                         ? "bg-red-50 text-red-600 dark:bg-red-900/20 dark:text-red-400"
                         : totalStock < 10
-                        ? "bg-orange-50 text-orange-600 dark:bg-orange-900/20 dark:text-orange-400"
+                        ? "bg-gray-100 text-gray-700 dark:bg-zinc-800 dark:text-gray-300"
                         : "bg-green-50 text-green-600 dark:bg-green-900/20 dark:text-green-400"
                 }`}>
                     {totalStock === 0 ? "Out of stock" : `${totalStock} in stock`}
@@ -58,7 +58,7 @@ export default function SizeSelector({
                         <span>{size}</span>
                         {inStock && stockCount !== undefined && stockCount > 0 && (
                             <span className={`text-[10px] font-normal ${
-                                stockCount <= 5 ? "text-orange-500" : "text-gray-400 dark:text-zinc-500"
+                                stockCount <= 5 ? "text-black dark:text-white font-semibold" : "text-gray-400 dark:text-zinc-500"
                             }`}>
                                 {stockCount <= 5 ? `${stockCount} left` : `${stockCount}`}
                             </span>

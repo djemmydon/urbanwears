@@ -67,7 +67,7 @@ export default function ImageCarousel({
                             aria-label={`View image ${i + 1}`}
                             className={`relative flex-1 aspect-square rounded-2xl overflow-hidden border-2 transition-all duration-200 ${
                                 i === current
-                                    ? "border-orange-500 opacity-100"
+                                    ? "border-black dark:border-white opacity-100"
                                     : "border-transparent opacity-50 hover:opacity-80"
                             }`}
                         >
@@ -92,7 +92,7 @@ export default function ImageCarousel({
                             onClick={() => setCurrent(i)}
                             className={`rounded-full transition-all ${
                                 i === current
-                                    ? "w-5 h-2 bg-orange-500"
+                                    ? "w-5 h-2 bg-black dark:bg-white"
                                     : "w-2 h-2 bg-gray-300 dark:bg-zinc-600"
                             }`}
                         />

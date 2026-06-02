@@ -5,6 +5,7 @@ import Link from "next/link";
 import { X, Plus, Minus, ShoppingBag, Trash2, ArrowRight, Tag } from "lucide-react";
 import { toast } from "sonner";
 import { useEffect, useRef } from "react";
+import { useAuthStore } from "@/lib/authStore";
 
 const FREE_SHIPPING_THRESHOLD = 100;
 const SHIPPING_COST = 10;
@@ -18,6 +19,7 @@ export default function CartModal({
 }) {
     const { items, removeFromCart, updateQuantity, getTotalPrice, clearCart } =
         useCartStore();
+    const { user } = useAuthStore();
 
     const panelRef = useRef<HTMLDivElement>(null);
 
@@ -42,7 +44,11 @@ export default function CartModal({
 
     const handleCheckout = () => {
         onClose();
-        window.location.href = "/checkout";
+        if (!user) {
+            window.location.href = "/login?redirect=/checkout";
+        } else {
+            window.location.href = "/checkout";
+        }
     };
 
     return (
@@ -61,12 +67,12 @@ export default function CartModal({
                 {/* Header */}
                 <div className="flex items-center justify-between px-6 py-5 border-b border-gray-100 dark:border-zinc-800 shrink-0">
                     <div className="flex items-center gap-3">
-                        <ShoppingBag className="w-5 h-5 text-orange-500" />
+                        <ShoppingBag className="w-5 h-5 text-black dark:text-white" />
                         <h2 className="font-bold text-lg text-gray-900 dark:text-white">
                             Your Cart
                         </h2>
                         {itemCount > 0 && (
-                            <span className="bg-orange-500 text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">
+                            <span className="bg-black dark:bg-white text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">
                                 {itemCount}
                             </span>
                         )}
@@ -82,14 +88,14 @@ export default function CartModal({
 
                 {/* Free shipping progress */}
                 {items.length > 0 && toFreeShipping > 0 && (
-                    <div className="px-6 py-3 bg-orange-50 dark:bg-orange-900/20 border-b border-orange-100 dark:border-orange-900/30 shrink-0">
-                        <div className="flex items-center gap-2 text-sm text-orange-700 dark:text-orange-400 mb-2">
+                    <div className="px-6 py-3 bg-gray-50 dark:bg-zinc-800/50 border-b border-gray-100 dark:border-zinc-700 shrink-0">
+                        <div className="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300 mb-2">
                             <Tag className="w-3.5 h-3.5" />
                             <span>Add <strong>₦{toFreeShipping.toFixed(2)}</strong> more for free shipping!</span>
                         </div>
-                        <div className="h-1.5 bg-orange-200 dark:bg-orange-900 rounded-full overflow-hidden">
+                        <div className="h-1.5 bg-gray-200 dark:bg-zinc-700 rounded-full overflow-hidden">
                             <div
-                                className="h-full bg-orange-500 rounded-full transition-all duration-500"
+                                className="h-full bg-black dark:bg-white rounded-full transition-all duration-500"
                                 style={{ width: `${Math.min(100, (subtotal / FREE_SHIPPING_THRESHOLD) * 100)}%` }}
                             />
                         </div>
@@ -119,7 +125,7 @@ export default function CartModal({
                             </p>
                             <button
                                 onClick={onClose}
-                                className="flex items-center gap-2 text-sm font-semibold text-orange-500 hover:text-orange-600 transition-colors"
+                                className="flex items-center gap-2 text-sm font-semibold text-black dark:text-white hover:opacity-70 transition-opacity"
                             >
                                 Continue Shopping
                                 <ArrowRight className="w-4 h-4" />
@@ -260,7 +266,7 @@ export default function CartModal({
                         {/* CTA buttons */}
                         <button
                             onClick={handleCheckout}
-                            className="w-full py-4 bg-black dark:bg-white text-white dark:text-black rounded-2xl font-bold text-sm hover:bg-orange-500 hover:text-white transition-all active:scale-[0.98] flex items-center justify-center gap-2"
+                            className="w-full py-4 bg-black dark:bg-white text-white dark:text-black rounded-2xl font-bold text-sm hover:opacity-80 transition-all active:scale-[0.98] flex items-center justify-center gap-2"
                         >
                             Checkout
                             <ArrowRight className="w-4 h-4" />

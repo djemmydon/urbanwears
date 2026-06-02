@@ -2,7 +2,6 @@
 import { usePathname } from "next/navigation";
 import Header from "./Header";
 import Footer from "./Footer";
-import RotatingColorPicker from "./RotatingColorPicker";
 import CartModal from "./CartModal";
 import { useCartStore } from "@/lib/cartStore";
 
@@ -17,11 +16,12 @@ export default function StoreShell({
 
     if (isAdmin) return <>{children}</>;
 
+    const isHome = pathname === "/";
+
     return (
         <>
             <Header />
-            {children}
-            <RotatingColorPicker />
+            <div className={isHome ? "" : "pt-17"}>{children}</div>
             <Footer />
             {/* Cart rendered here (body level) to avoid header stacking-context issues */}
             <CartModal isOpen={isCartOpen} onClose={closeCart} />

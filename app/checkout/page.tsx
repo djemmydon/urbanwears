@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useCartStore } from "@/lib/cartStore";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
@@ -7,24 +7,55 @@ import Image from "next/image";
 import { Lock, CheckCircle, ShoppingBag, User, Phone, MapPin, Mail } from "lucide-react";
 import { usePaystack } from "@/hooks/usePaystack";
 import { useUserStore } from "@/lib/userStore";
+import { useAuthStore } from "@/lib/authStore";
 import { createOrder, verifyPayment } from "@/lib/api";
 
 export default function CheckoutPage() {
+    // ── ALL hooks must be at the top, before any conditional return ──
     const { items, getTotalPrice, clearCart } = useCartStore();
     const { pay, loaded: paystackLoaded } = usePaystack();
     const router = useRouter();
     const { setUserInfo } = useUserStore();
+    const { user, checkSession, loading: authLoading } = useAuthStore();
 
     const [step, setStep] = useState<"details" | "success">("details");
     const [isProcessing, setIsProcessing] = useState(false);
     const [completedOrderId, setCompletedOrderId] = useState("");
-
     const [form, setForm] = useState({
         fullName: "",
         email: "",
         phone: "",
         address: "",
     });
+
+    useEffect(() => { checkSession(); }, []);
+
+    // Pre-fill form when user loads
+    useEffect(() => {
+        if (user) {
+            setForm((f) => ({
+                ...f,
+                fullName: f.fullName || user.fullName || "",
+                email: f.email || user.email || "",
+            }));
+        }
+    }, [user]);
+
+    useEffect(() => {
+        if (!authLoading && !user) {
+            router.replace("/login?redirect=/checkout");
+        }
+    }, [user, authLoading, router]);
+
+    // ── Conditional renders after all hooks ──
+    if (authLoading || !user) {
+        return (
+            <div className="min-h-screen flex items-center justify-center bg-white">
+                <div style={{ width: 36, height: 36, border: "1.5px solid rgba(0,0,0,0.08)", borderTopColor: "#000", borderRadius: "50%", animation: "spin 0.7s linear infinite" }} />
+                <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
+            </div>
+        );
+    }
 
     const total = getTotalPrice();
     const currency = process.env.NEXT_PUBLIC_PAYSTACK_CURRENCY || "NGN";
@@ -253,10 +284,7 @@ export default function CheckoutPage() {
                                                 {item.quantity}
                                             </p>
                                             <p className="font-bold mt-1">
-                                                $
-                                                {(
-                                                    item.price * item.quantity
-                                                ).toFixed(2)}
+                                                ₦{(item.price * item.quantity).toFixed(2)}
                                             </p>
                                         </div>
                                     </div>
@@ -324,8 +352,8 @@ export default function CheckoutPage() {
                             <span>Secured by Paystack • 256-bit SSL</span>
                         </div>
 
-                        <div className="mt-6 p-4 bg-orange-50 dark:bg-orange-900/20 rounded-2xl border border-orange-100 dark:border-orange-900/30">
-                            <p className="text-xs text-orange-700 dark:text-orange-400 text-center leading-relaxed">
+                        <div className="mt-6 p-4 bg-gray-50 dark:bg-zinc-800/50 rounded-2xl border border-gray-100 dark:border-zinc-700">
+                            <p className="text-xs text-gray-600 dark:text-gray-400 text-center leading-relaxed">
                                 You'll be redirected to Paystack to complete
                                 your payment securely. Your order details are
                                 saved automatically.

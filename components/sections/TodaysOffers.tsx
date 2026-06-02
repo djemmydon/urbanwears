@@ -34,7 +34,7 @@ export default function TodaysOffers() {
     if (offers.length === 0) return null;
 
     return (
-        <section className="bg-black py-16 md:py-20">
+        <section style={{ background: "#f7f7f7" }} className="py-16 md:py-20">
             <div className="max-w-7xl mx-auto px-4 sm:px-6">
                 {/* Header */}
                 <div className="flex items-end justify-between mb-8">
@@ -42,13 +42,13 @@ export default function TodaysOffers() {
                         <p className="text-[10px] tracking-[5px] uppercase text-[var(--accent-hex)] font-semibold mb-2">
                             Limited Time Only
                         </p>
-                        <h2 className="text-3xl sm:text-4xl md:text-5xl font-black uppercase tracking-tight text-white">
+                        <h2 className="text-3xl sm:text-4xl md:text-5xl font-black uppercase tracking-tight text-black">
                             Today&apos;s Deals
                         </h2>
                     </div>
                     <Link
                         href="/#shop"
-                        className="hidden sm:inline-block text-xs font-bold uppercase tracking-[3px] text-white/60 hover:text-white underline underline-offset-4 transition-colors"
+                        className="hidden sm:inline-block text-xs font-bold uppercase tracking-[3px] text-black/50 hover:text-black underline underline-offset-4 transition-colors"
                     >
                         Shop All Sale
                     </Link>
@@ -71,7 +71,7 @@ export default function TodaysOffers() {
                             <Link
                                 key={product.id}
                                 href={`/products/${product.id}`}
-                                className="group relative overflow-hidden flex bg-zinc-900 hover:bg-zinc-800 transition-colors"
+                                className="group relative overflow-hidden flex bg-white hover:bg-gray-50 transition-colors border border-gray-100"
                             >
                                 {/* Image */}
                                 <div className="relative w-44 sm:w-52 flex-shrink-0">
@@ -90,23 +90,23 @@ export default function TodaysOffers() {
 
                                 {/* Content */}
                                 <div className="flex flex-col justify-center p-6 sm:p-8 flex-1">
-                                    <p className="text-white/50 text-[10px] uppercase tracking-[4px] mb-2">
+                                    <p className="text-black/40 text-[10px] uppercase tracking-[4px] mb-2">
                                         {product.category}
                                     </p>
-                                    <h3 className="text-white font-black text-xl sm:text-2xl uppercase leading-tight mb-3">
+                                    <h3 className="text-black font-black text-xl sm:text-2xl uppercase leading-tight mb-3">
                                         {product.name}
                                     </h3>
                                     <div className="flex items-baseline gap-3 mb-5">
-                                        <span className="text-2xl font-black text-white">
+                                        <span className="text-2xl font-black text-black">
                                             ₦{product.price}
                                         </span>
                                         {originalPrice && (
-                                            <span className="line-through text-white/40 text-sm">
+                                            <span className="line-through text-black/30 text-sm">
                                                 ₦{originalPrice}
                                             </span>
                                         )}
                                     </div>
-                                    <span className="inline-block bg-white text-black text-[10px] font-black uppercase tracking-[3px] px-5 py-2.5 self-start group-hover:bg-[var(--accent-hex)] group-hover:text-white transition-all duration-200">
+                                    <span className="inline-block bg-black text-white text-[10px] font-black uppercase tracking-[3px] px-5 py-2.5 self-start group-hover:opacity-75 transition-all duration-200">
                                         Grab Deal →
                                     </span>
                                 </div>
