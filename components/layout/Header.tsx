@@ -232,7 +232,7 @@ export default function Header() {
                             {wishlistItems.length > 0 && (
                                 <span
                                     className="pnav-badge"
-                                    style={{ background: fg, color: bg === "transparent" ? "#000" : bg }}
+                                    style={{ background: fg, color: bg }}
                                 >
                                     {wishlistItems.length}
                                 </span>
@@ -250,7 +250,7 @@ export default function Header() {
                             {getTotalItems() > 0 && (
                                 <span
                                     className="pnav-badge"
-                                    style={{ background: fg, color: bg === "transparent" ? "#000" : bg }}
+                                    style={{ background: fg, color: bg }}
                                 >
                                     {getTotalItems()}
                                 </span>
