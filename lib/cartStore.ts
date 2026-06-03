@@ -108,6 +108,6 @@ export const useCartStore = create<CartStore>()(
                 );
             },
         }),
-        { name: "urbanluxe-cart" },
+        { name: "urbanblaq-cart" },
     ),
 );

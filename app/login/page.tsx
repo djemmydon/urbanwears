@@ -1,12 +1,12 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useAuthStore } from "@/lib/authStore";
 import { supabase } from "@/lib/supabase";
 import { Eye, EyeOff, ArrowRight } from "lucide-react";
 
-export default function LoginPage() {
+function LoginForm() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [showPass, setShowPass] = useState(false);
@@ -81,7 +81,7 @@ export default function LoginPage() {
                             style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 28, letterSpacing: "0.12em" }}
                             className="text-black no-underline"
                         >
-                            URBANLUXE
+                            URBANBLAQ
                         </Link>
                         <p className="mt-3 text-xs tracking-widest uppercase opacity-40">
                             Sign in to your account
@@ -181,5 +181,18 @@ export default function LoginPage() {
                 </div>
             </div>
         </>
+    );
+}
+
+export default function LoginPage() {
+    return (
+        <Suspense fallback={
+            <div className="min-h-screen bg-white flex items-center justify-center">
+                <div style={{ width: 32, height: 32, border: "1.5px solid rgba(0,0,0,0.08)", borderTopColor: "#000", borderRadius: "50%", animation: "spin .7s linear infinite" }} />
+                <style>{`@keyframes spin{to{transform:rotate(360deg)}}`}</style>
+            </div>
+        }>
+            <LoginForm />
+        </Suspense>
     );
 }

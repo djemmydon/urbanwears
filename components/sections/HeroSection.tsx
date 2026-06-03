@@ -227,7 +227,7 @@ export default function HeroSection() {
                             fontSize: 11, letterSpacing: "0.4em",
                             color: "rgba(0,0,0,0.15)",
                         }}>
-                            URBANLUXE
+                            URBANBLAQ
                         </span>
                         <span style={{ fontSize: 10, letterSpacing: "0.2em", color: "rgba(0,0,0,0.2)", fontFamily: "'Barlow', sans-serif" }}>
                             PREMIUM ESSENTIALS

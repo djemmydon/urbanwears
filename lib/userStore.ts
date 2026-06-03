@@ -27,6 +27,6 @@ export const useUserStore = create<UserStore>()(
             clearUser: () =>
                 set({ email: "", fullName: "", phone: "", address: "" }),
         }),
-        { name: "urbanluxe-user" },
+        { name: "urbanblaq-user" },
     ),
 );

@@ -19,8 +19,8 @@ const cormorant = Cormorant_Garamond({
 });
 
 export const metadata: Metadata = {
-    title: "URBANLUXE | Premium Polos, T-Shirts & Hoodies",
-    description: "Elevate your style with premium essentials.",
+    title: "URBANBLAQ | Urbanblaqluxury — Premium Polos, T-Shirts & Hoodies",
+    description: "Urbanblaqluxury — premium essentials for the modern wardrobe.",
     icons: { icon: "/favicon.ico" },
 };
 

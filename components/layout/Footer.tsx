@@ -35,7 +35,7 @@ export default function Footer() {
                             </span>
                         </div>
                         <h2 className="text-xl font-black tracking-tight">
-                            URBANLUXE
+                            URBANBLAQ
                         </h2>
                     </div>
                     <p className="text-gray-400 text-sm leading-relaxed mb-6">
@@ -112,7 +112,7 @@ export default function Footer() {
                     <ul className="space-y-3 text-gray-400 text-sm">
                         <li>
                             <a
-                                href="mailto:support@urbanluxe.com"
+                                href="mailto:support@urbanblaqluxury.com"
                                 className="hover:text-white transition-colors"
                             >
                                 Contact Us
@@ -182,7 +182,7 @@ export default function Footer() {
             </div>
 
             <div className="max-w-7xl mx-auto px-6 mt-14 pt-8 border-t border-zinc-800 flex flex-col sm:flex-row justify-between items-center gap-3 text-xs text-gray-500">
-                <p>© 2026 URBANLUXE. All Rights Reserved.</p>
+                <p>© 2026 Urbanblaqluxury. All Rights Reserved.</p>
                 <div className="flex gap-4">
                     <a href="#" className="hover:text-gray-300 transition-colors">
                         Privacy Policy

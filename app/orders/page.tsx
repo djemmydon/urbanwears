@@ -45,7 +45,7 @@ export default function OrdersPage() {
             <div className="mb-10">
                 <h1 className="text-4xl font-bold">Order History</h1>
                 <p className="text-gray-500 mt-2">
-                    Track your URBANLUXE orders
+                    Track your URBANBLAQ orders
                 </p>
             </div>
 

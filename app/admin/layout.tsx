@@ -33,7 +33,7 @@ export default function AdminLayout({
                             <span className="text-black font-black text-2xl">U</span>
                         </div>
                         <h1 className="text-white text-2xl font-black tracking-tight">
-                            URBANLUXE
+                            URBANBLAQ
                         </h1>
                         <p className="text-zinc-500 text-sm mt-1">Admin Panel</p>
                     </div>
@@ -106,7 +106,7 @@ export default function AdminLayout({
                             <span className="text-black font-black text-sm">U</span>
                         </div>
                         <span className="text-white font-black text-sm tracking-wider">
-                            URBANLUXE ADMIN
+                            URBANBLAQ ADMIN
                         </span>
                     </div>
                 </div>

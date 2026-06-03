@@ -496,7 +496,7 @@ export default function ProductDetail() {
                 <div className="pwk-modal-bg" onClick={() => setShowSizeChart(false)}>
                     <div className="pwk-modal" onClick={(e) => e.stopPropagation()}>
                         <div className="pwk-modal-head">
-                            <div className="pwk-modal-title">URBANLUXE — Size Guide</div>
+                            <div className="pwk-modal-title">URBANBLAQ — Size Guide</div>
                             <button className="pwk-modal-close" onClick={() => setShowSizeChart(false)}>
                                 <X size={20} />
                             </button>

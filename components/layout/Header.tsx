@@ -198,7 +198,7 @@ export default function Header() {
                     {/* Center — logo */}
                     <div className="pnav-center">
                         <Link href="/" className="pnav-brand" style={{ color: "#000" }}>
-                            URBANLUXE
+                            URBANBLAQ
                         </Link>
                     </div>
 
@@ -269,7 +269,7 @@ export default function Header() {
                 <div className={`pnav-drawer${showNav ? " on" : ""}`}>
                     <div className="pnav-dtop">
                         <Link href="/" className="pnav-dlogo" onClick={() => setShowNav(false)}>
-                            URBANLUXE
+                            URBANBLAQ
                         </Link>
                         <button
                             className="pnav-icon"

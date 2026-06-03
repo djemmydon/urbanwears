@@ -42,7 +42,7 @@ export default function Sidebar({ onClose }: { onClose?: () => void }) {
                         <span className="text-black font-black text-lg">U</span>
                     </div>
                     <div>
-                        <p className="font-black text-sm tracking-wider">URBANLUXE</p>
+                        <p className="font-black text-sm tracking-wider">URBANBLAQ</p>
                         <p className="text-[10px] text-zinc-500 tracking-widest">
                             ADMIN PANEL
                         </p>
