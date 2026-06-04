@@ -25,6 +25,41 @@ const CATEGORIES = [
         tag: "Trending",
         desc: "Relaxed & premium",
     },
+    {
+        name: "Tank Tops",
+        type: "Tan top",
+        image: "/images/e1.png",
+        tag: "Summer",
+        desc: "Built for warm days",
+    },
+    {
+        name: "Socks",
+        type: "socks",
+        image: "/images/e2.png",
+        tag: "Essentials",
+        desc: "Comfort from the ground up",
+    },
+    {
+        name: "Joggers",
+        type: "joggers",
+        image: "/images/e3.png",
+        tag: "New In",
+        desc: "Comfort meets style",
+    },
+    {
+        name: "2 Piece Sets",
+        type: "2 piece set",
+        image: "/images/e1.png",
+        tag: "Featured",
+        desc: "Effortless matching looks",
+    },
+    {
+        name: "Beanie Hats",
+        type: "beanie Hat",
+        image: "/images/e2.png",
+        tag: "Accessories",
+        desc: "Stay warm, stay sharp",
+    },
 ];
 
 export default function CategoriesSection() {
@@ -64,15 +99,15 @@ export default function CategoriesSection() {
                     </Link>
                 </div>
 
-                {/* Three-column tiles */}
+                {/* Category tiles */}
                 <div style={{
                     display: "grid",
-                    gridTemplateColumns: "repeat(3, 1fr)",
+                    gridTemplateColumns: "repeat(4, 1fr)",
                     gap: 12,
                 }}
                     className="cat-grid"
                 >
-                    {CATEGORIES.map((cat, i) => (
+                    {CATEGORIES.map((cat) => (
                         <Link
                             key={cat.type}
                             href={`/category/${cat.type}`}
@@ -82,7 +117,7 @@ export default function CategoriesSection() {
                             {/* Image box */}
                             <div style={{
                                 position: "relative",
-                                aspectRatio: i === 1 ? "4/5" : "3/4",
+                                aspectRatio: "3/4",
                                 overflow: "hidden",
                                 background: "#e8e8e8",
                                 marginBottom: 14,
@@ -145,10 +180,13 @@ export default function CategoriesSection() {
                 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&display=swap');
                 .cat-card-link:hover .cat-img { transform: scale(1.05); }
                 @media (max-width: 640px) {
-                    .cat-grid { grid-template-columns: 1fr !important; gap: 24px !important; }
+                    .cat-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 12px !important; }
                 }
                 @media (min-width: 641px) and (max-width: 900px) {
-                    .cat-grid { grid-template-columns: repeat(2, 1fr) !important; }
+                    .cat-grid { grid-template-columns: repeat(3, 1fr) !important; }
+                }
+                @media (min-width: 901px) and (max-width: 1200px) {
+                    .cat-grid { grid-template-columns: repeat(4, 1fr) !important; }
                 }
             `}</style>
         </section>

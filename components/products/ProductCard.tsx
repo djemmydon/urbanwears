@@ -81,7 +81,7 @@ export default function ProductCard({ product }: { product: Product }) {
                 {/* Quick add — slides up on hover */}
                 <button
                     onClick={handleQuickAdd}
-                    className="absolute bottom-0 left-0 right-0 bg-black dark:bg-white text-white dark:text-black text-[10px] font-black uppercase tracking-[3px] py-3 translate-y-full group-hover:translate-y-0 transition-transform duration-300 hover:bg-(--accent-hex) dark:hover:bg-(--accent-hex) hover:text-white flex items-center justify-center gap-2"
+                    className="absolute bottom-0 left-0 right-0 bg-black dark:bg-white text-white dark:text-black text-[10px] font-black uppercase tracking-[3px] py-3 translate-y-full group-hover:translate-y-0 transition-transform duration-300 hover:bg-orange-500 dark:hover:bg-orange-500 hover:text-white flex items-center justify-center gap-2"
                 >
                     <ShoppingCart className="w-3.5 h-3.5" />
                     Quick Add

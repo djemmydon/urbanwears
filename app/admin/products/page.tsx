@@ -10,6 +10,11 @@ const TYPE_LABELS: Record<string, string> = {
     polo: "Polo",
     tshirt: "T-Shirt",
     hoodie: "Hoodie",
+    "Tan top": "Tank Top",
+    socks: "Socks",
+    joggers: "Joggers",
+    "2 piece set": "2 Piece Set",
+    "beanie Hat": "Beanie Hat",
 };
 
 export default function AdminProductsPage() {
@@ -74,8 +79,8 @@ export default function AdminProductsPage() {
                         className="w-full pl-10 pr-4 py-3 bg-white dark:bg-zinc-900 border border-gray-200 dark:border-zinc-700 rounded-2xl text-sm focus:outline-none focus:border-orange-400"
                     />
                 </div>
-                <div className="flex gap-2 bg-gray-100 dark:bg-zinc-800 p-1.5 rounded-2xl">
-                    {["all", "polo", "tshirt", "hoodie"].map((t) => (
+                <div className="flex flex-wrap gap-2 bg-gray-100 dark:bg-zinc-800 p-1.5 rounded-2xl">
+                    {["all", "polo", "tshirt", "hoodie", "Tan top", "socks", "joggers", "2 piece set", "beanie Hat"].map((t) => (
                         <button
                             key={t}
                             onClick={() => setTypeFilter(t)}

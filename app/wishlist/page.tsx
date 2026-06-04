@@ -60,7 +60,7 @@ export default function WishlistPage() {
                     </p>
                     <Link
                         href="/"
-                        className="inline-block bg-black dark:bg-white text-white dark:text-black px-10 py-4 rounded-2xl font-semibold hover:bg-(--accent-hex) hover:text-black transition-all"
+                        className="inline-block bg-black dark:bg-white text-white dark:text-black px-10 py-4 rounded-2xl font-semibold hover:bg-orange-500 hover:text-white transition-all"
                     >
                         Explore Collection
                     </Link>
@@ -126,7 +126,7 @@ export default function WishlistPage() {
                                                 onClick={() =>
                                                     handleMoveToCart(product)
                                                 }
-                                                className="flex-1 flex items-center justify-center gap-2 py-3 bg-black dark:bg-white text-white dark:text-black rounded-xl font-medium text-sm hover:bg-(--accent-hex) hover:text-black transition-all"
+                                                className="flex-1 flex items-center justify-center gap-2 py-3 bg-black dark:bg-white text-white dark:text-black rounded-xl font-medium text-sm hover:bg-orange-500 hover:text-white transition-all"
                                             >
                                                 <ShoppingCart className="w-4 h-4" />
                                                 Add to Cart

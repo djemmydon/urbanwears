@@ -196,7 +196,7 @@ export default function HeroSection() {
                                 }}
                                 className="hero-cta-btn"
                             >
-                                {slide.cta.label}
+                                <span>{slide.cta.label}</span>
                                 <ArrowRight size={13} />
                             </Link>
                             <Link

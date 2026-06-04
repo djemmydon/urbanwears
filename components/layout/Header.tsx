@@ -24,6 +24,11 @@ const DRAWER_LINKS = [
     { label: "Polos", href: "/category/polo" },
     { label: "T-Shirts", href: "/category/tshirt" },
     { label: "Hoodies", href: "/category/hoodie" },
+    { label: "Tank Tops", href: "/category/Tan top" },
+    { label: "Socks", href: "/category/socks" },
+    { label: "Joggers", href: "/category/joggers" },
+    { label: "2 Piece Sets", href: "/category/2 piece set" },
+    { label: "Beanie Hats", href: "/category/beanie Hat" },
     { label: "My Dashboard", href: "/dashboard" },
     { label: "Wishlist", href: "/wishlist" },
 ];

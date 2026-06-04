@@ -25,6 +25,31 @@ const CATEGORY_META: Record<string, { label: string; description: string; hero: 
         description: "Ultra-soft fleece hoodies designed for comfort",
         hero: "/images/e2.png",
     },
+    "Tan top": {
+        label: "Tank Tops",
+        description: "Clean cuts built for the warm season",
+        hero: "/images/e1.png",
+    },
+    socks: {
+        label: "Socks",
+        description: "Premium socks for every occasion",
+        hero: "/images/e2.png",
+    },
+    joggers: {
+        label: "Joggers",
+        description: "Relaxed fits engineered for comfort and style",
+        hero: "/images/e3.png",
+    },
+    "2 piece set": {
+        label: "2 Piece Sets",
+        description: "Coordinated sets for an effortless look",
+        hero: "/images/e1.png",
+    },
+    "beanie Hat": {
+        label: "Beanie Hats",
+        description: "Stay warm and look sharp",
+        hero: "/images/e2.png",
+    },
 };
 
 const SORT_OPTIONS = [
@@ -35,7 +60,8 @@ const SORT_OPTIONS = [
 ] as const;
 
 export default function CategoryPage() {
-    const { type } = useParams<{ type: string }>();
+    const params = useParams<{ type: string }>();
+    const type = decodeURIComponent(params.type);
     const meta = CATEGORY_META[type] ?? {
         label: type,
         description: "Browse our collection",
@@ -155,7 +181,7 @@ export default function CategoryPage() {
                         </p>
                         <Link
                             href="/"
-                            className="inline-block bg-black dark:bg-white text-white dark:text-black px-8 py-4 rounded-2xl font-semibold hover:bg-(--accent-hex) hover:text-black transition-all"
+                            className="inline-block bg-black dark:bg-white text-white dark:text-black px-8 py-4 rounded-2xl font-semibold hover:bg-orange-500 hover:text-white transition-all"
                         >
                             Browse All
                         </Link>

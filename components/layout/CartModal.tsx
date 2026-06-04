@@ -7,8 +7,7 @@ import { toast } from "sonner";
 import { useEffect, useRef } from "react";
 import { useAuthStore } from "@/lib/authStore";
 
-const FREE_SHIPPING_THRESHOLD = 100;
-const SHIPPING_COST = 10;
+const SHIPPING_FEE = 2500;
 
 export default function CartModal({
     isOpen,
@@ -37,10 +36,9 @@ export default function CartModal({
     }, [isOpen]);
 
     const subtotal = getTotalPrice();
-    const shipping = subtotal >= FREE_SHIPPING_THRESHOLD || items.length === 0 ? 0 : SHIPPING_COST;
+    const shipping = items.length === 0 ? 0 : SHIPPING_FEE;
     const total = subtotal + shipping;
     const itemCount = items.reduce((s, i) => s + i.quantity, 0);
-    const toFreeShipping = Math.max(0, FREE_SHIPPING_THRESHOLD - subtotal);
 
     const handleCheckout = () => {
         onClose();
@@ -86,26 +84,12 @@ export default function CartModal({
                     </button>
                 </div>
 
-                {/* Free shipping progress */}
-                {items.length > 0 && toFreeShipping > 0 && (
-                    <div className="px-6 py-3 bg-gray-50 dark:bg-zinc-800/50 border-b border-gray-100 dark:border-zinc-700 shrink-0">
-                        <div className="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300 mb-2">
+                {/* Delivery fee notice */}
+                {items.length > 0 && (
+                    <div className="px-6 py-2.5 bg-gray-50 dark:bg-zinc-800/50 border-b border-gray-100 dark:border-zinc-700 shrink-0">
+                        <p className="text-sm text-gray-600 dark:text-gray-400 flex items-center gap-1.5">
                             <Tag className="w-3.5 h-3.5" />
-                            <span>Add <strong>₦{toFreeShipping.toFixed(2)}</strong> more for free shipping!</span>
-                        </div>
-                        <div className="h-1.5 bg-gray-200 dark:bg-zinc-700 rounded-full overflow-hidden">
-                            <div
-                                className="h-full bg-black dark:bg-white rounded-full transition-all duration-500"
-                                style={{ width: `${Math.min(100, (subtotal / FREE_SHIPPING_THRESHOLD) * 100)}%` }}
-                            />
-                        </div>
-                    </div>
-                )}
-                {items.length > 0 && toFreeShipping === 0 && (
-                    <div className="px-6 py-2.5 bg-green-50 dark:bg-green-900/20 border-b border-green-100 dark:border-green-900/30 shrink-0">
-                        <p className="text-sm text-green-700 dark:text-green-400 font-medium flex items-center gap-1.5">
-                            <Tag className="w-3.5 h-3.5" />
-                            You've got free shipping!
+                            Delivery fee: <strong className="text-gray-900 dark:text-white">₦{SHIPPING_FEE.toLocaleString()}</strong>
                         </p>
                     </div>
                 )}
@@ -250,9 +234,9 @@ export default function CartModal({
                                 </span>
                             </div>
                             <div className="flex justify-between text-sm text-gray-500">
-                                <span>Shipping</span>
-                                <span className={`font-medium ${shipping === 0 ? "text-green-600" : "text-gray-900 dark:text-white"}`}>
-                                    {shipping === 0 ? "Free" : `₦${shipping.toFixed(2)}`}
+                                <span>Delivery Fee</span>
+                                <span className="font-medium text-gray-900 dark:text-white">
+                                    ₦{shipping.toLocaleString()}
                                 </span>
                             </div>
                             <div className="flex justify-between items-center pt-2 border-t border-gray-100 dark:border-zinc-800">

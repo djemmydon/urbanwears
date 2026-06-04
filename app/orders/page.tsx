@@ -67,7 +67,7 @@ export default function OrdersPage() {
                     />
                     <button
                         onClick={() => loadOrders(searchEmail)}
-                        className="px-8 py-4 bg-black dark:bg-white text-white dark:text-black rounded-2xl font-semibold hover:bg-[var(--accent-hex)] hover:text-black transition-all"
+                        className="px-8 py-4 bg-black dark:bg-white text-white dark:text-black rounded-2xl font-semibold hover:bg-orange-500 hover:text-white transition-all"
                     >
                         Search
                     </button>
@@ -102,7 +102,7 @@ export default function OrdersPage() {
                     </p>
                     <Link
                         href="/"
-                        className="inline-block bg-black dark:bg-white text-white dark:text-black px-8 py-4 rounded-2xl font-semibold hover:bg-[var(--accent-hex)] hover:text-black transition-all"
+                        className="inline-block bg-black dark:bg-white text-white dark:text-black px-8 py-4 rounded-2xl font-semibold hover:bg-orange-500 hover:text-white transition-all"
                     >
                         Start Shopping →
                     </Link>

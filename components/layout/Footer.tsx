@@ -15,12 +15,22 @@ export default function Footer() {
             return;
         }
         setJoining(true);
-        await new Promise((r) => setTimeout(r, 800));
-        toast.success("You're on the list!", {
-            description: `${email} will receive our next drop notification.`,
-        });
-        setEmail("");
-        setJoining(false);
+        try {
+            const res = await fetch("/api/newsletter", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ email }),
+            });
+            if (!res.ok) throw new Error();
+            toast.success("You're on the list!", {
+                description: `${email} will receive our next drop notification.`,
+            });
+            setEmail("");
+        } catch {
+            toast.error("Something went wrong. Please try again.");
+        } finally {
+            setJoining(false);
+        }
     };
 
     return (
@@ -47,7 +57,7 @@ export default function Footer() {
                             <a
                                 key={i}
                                 href="#"
-                                className="w-9 h-9 bg-zinc-800 hover:bg-(--accent-hex) hover:text-black rounded-xl flex items-center justify-center transition-all"
+                                className="w-9 h-9 bg-zinc-800 hover:bg-orange-500 hover:text-white rounded-xl flex items-center justify-center transition-all"
                             >
                                 <Icon className="w-4 h-4" />
                             </a>
@@ -87,6 +97,46 @@ export default function Footer() {
                         </li>
                         <li>
                             <Link
+                                href="/category/Tan top"
+                                className="hover:text-white transition-colors"
+                            >
+                                Tank Tops
+                            </Link>
+                        </li>
+                        <li>
+                            <Link
+                                href="/category/socks"
+                                className="hover:text-white transition-colors"
+                            >
+                                Socks
+                            </Link>
+                        </li>
+                        <li>
+                            <Link
+                                href="/category/joggers"
+                                className="hover:text-white transition-colors"
+                            >
+                                Joggers
+                            </Link>
+                        </li>
+                        <li>
+                            <Link
+                                href="/category/2 piece set"
+                                className="hover:text-white transition-colors"
+                            >
+                                2 Piece Sets
+                            </Link>
+                        </li>
+                        <li>
+                            <Link
+                                href="/category/beanie Hat"
+                                className="hover:text-white transition-colors"
+                            >
+                                Beanie Hats
+                            </Link>
+                        </li>
+                        <li>
+                            <Link
                                 href="/wishlist"
                                 className="hover:text-white transition-colors"
                             >
@@ -112,35 +162,35 @@ export default function Footer() {
                     <ul className="space-y-3 text-gray-400 text-sm">
                         <li>
                             <a
-                                href="mailto:support@urbanblaqluxury.com"
+                                href="mailto:melvin@urbanblaqluxury.com"
                                 className="hover:text-white transition-colors"
                             >
                                 Contact Us
                             </a>
                         </li>
                         <li>
-                            <a
-                                href="#"
+                            <Link
+                                href="/shipping-policy"
                                 className="hover:text-white transition-colors"
                             >
                                 Shipping Policy
-                            </a>
+                            </Link>
                         </li>
                         <li>
-                            <a
-                                href="#"
+                            <Link
+                                href="/returns"
                                 className="hover:text-white transition-colors"
                             >
                                 Returns & Exchanges
-                            </a>
+                            </Link>
                         </li>
                         <li>
-                            <a
-                                href="#"
+                            <Link
+                                href="/size-guide"
                                 className="hover:text-white transition-colors"
                             >
                                 Size Guide
-                            </a>
+                            </Link>
                         </li>
                         <li>
                             <Link
@@ -162,7 +212,10 @@ export default function Footer() {
                         Be the first to know about new drops and exclusive
                         offers.
                     </p>
-                    <form onSubmit={handleNewsletterSubmit} className="flex flex-col gap-3">
+                    <form
+                        onSubmit={handleNewsletterSubmit}
+                        className="flex flex-col gap-3"
+                    >
                         <input
                             type="email"
                             value={email}
@@ -173,7 +226,7 @@ export default function Footer() {
                         <button
                             type="submit"
                             disabled={joining}
-                            className="bg-white text-black py-3 rounded-xl text-sm font-semibold hover:bg-(--accent-hex) transition-all disabled:opacity-60"
+                            className="bg-white text-black py-3 rounded-xl text-sm font-semibold hover:bg-zinc-200 transition-all disabled:opacity-60"
                         >
                             {joining ? "Joining..." : "Join the List"}
                         </button>
@@ -184,12 +237,11 @@ export default function Footer() {
             <div className="max-w-7xl mx-auto px-6 mt-14 pt-8 border-t border-zinc-800 flex flex-col sm:flex-row justify-between items-center gap-3 text-xs text-gray-500">
                 <p>© 2026 Urbanblaqluxury. All Rights Reserved.</p>
                 <div className="flex gap-4">
-                    <a href="#" className="hover:text-gray-300 transition-colors">
-                        Privacy Policy
-                    </a>
-                    <a href="#" className="hover:text-gray-300 transition-colors">
-                        Terms of Service
-                    </a>
+                    <Link href="/privacy-policy" className="hover:text-gray-300 transition-colors">Privacy Policy</Link>
+                    <Link href="/terms-of-service" className="hover:text-gray-300 transition-colors">Terms of Service</Link>
+                    <Link href="/shipping-policy" className="hover:text-gray-300 transition-colors">Shipping</Link>
+                    <Link href="/returns" className="hover:text-gray-300 transition-colors">Returns</Link>
+                    <Link href="/size-guide" className="hover:text-gray-300 transition-colors">Size Guide</Link>
                 </div>
             </div>
         </footer>

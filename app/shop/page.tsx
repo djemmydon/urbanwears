@@ -12,6 +12,11 @@ const TABS = [
     { label: "Polo", value: "polo" },
     { label: "T-Shirts", value: "tshirt" },
     { label: "Hoodies", value: "hoodie" },
+    { label: "Tank Tops", value: "Tan top" },
+    { label: "Socks", value: "socks" },
+    { label: "Joggers", value: "joggers" },
+    { label: "2 Piece Sets", value: "2 piece set" },
+    { label: "Beanies", value: "beanie Hat" },
 ];
 
 const SORT = [

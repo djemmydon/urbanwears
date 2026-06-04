@@ -1,7 +1,15 @@
 export interface Product {
     id: string;
     name: string;
-    type: "polo" | "tshirt" | "hoodie";
+    type:
+        | "polo"
+        | "tshirt"
+        | "hoodie"
+        | "Tan top"
+        | "socks"
+        | "joggers"
+        | "2 piece set"
+        | "beanie Hat";
     price: number;
     originalPrice?: number;
     original_price?: number;

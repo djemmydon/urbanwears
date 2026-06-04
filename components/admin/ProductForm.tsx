@@ -9,7 +9,7 @@ type ColorEntry = { name: string; hex: string };
 
 export type ProductFormData = {
     name: string;
-    type: "polo" | "tshirt" | "hoodie";
+    type: Product["type"];
     category: string;
     price: string;
     original_price: string;
@@ -25,6 +25,11 @@ const CATEGORIES: Record<string, string[]> = {
     polo: ["Polo", "Classic Polo", "Performance Polo", "Slim Fit Polo", "Premium Polo"],
     tshirt: ["T-Shirt", "Essential Tee", "Graphic Tee", "Oversized Tee", "Vintage Tee"],
     hoodie: ["Hoodie", "Pullover Hoodie", "Zip-Up Hoodie", "Premium Hoodie", "Fleece Hoodie"],
+    "Tan top": ["Tank Top", "Basic Tank", "Muscle Tank", "Crop Tank", "Ribbed Tank"],
+    socks: ["Socks", "Crew Socks", "Ankle Socks", "Athletic Socks", "No-Show Socks"],
+    joggers: ["Joggers", "Slim Joggers", "Relaxed Joggers", "Fleece Joggers", "Cargo Joggers"],
+    "2 piece set": ["2 Piece Set", "Matching Set", "Coordinated Set", "Tracksuit Set"],
+    "beanie Hat": ["Beanie", "Classic Beanie", "Slouch Beanie", "Cuffed Beanie", "Ribbed Beanie"],
 };
 
 const DEFAULT_SIZES: SizeEntry[] = [
@@ -200,7 +205,6 @@ export default function ProductForm({
                             onChange={(e) => {
                                 const t = e.target.value as typeof form.type;
                                 set("type", t);
-                                // Reset category to first option for the new type
                                 if (!CATEGORIES[t]?.includes(form.category)) {
                                     set("category", CATEGORIES[t][0]);
                                 }
@@ -210,6 +214,11 @@ export default function ProductForm({
                             <option value="polo">Polo</option>
                             <option value="tshirt">T-Shirt</option>
                             <option value="hoodie">Hoodie</option>
+                            <option value="Tan top">Tank Top</option>
+                            <option value="socks">Socks</option>
+                            <option value="joggers">Joggers</option>
+                            <option value="2 piece set">2 Piece Set</option>
+                            <option value="beanie Hat">Beanie Hat</option>
                         </select>
                     </div>
                     <div>

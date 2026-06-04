@@ -66,7 +66,7 @@ function TrendingCard({ product, rank }: { product: Product; rank: number }) {
             {/* Quick add */}
             <button
                 onClick={handleAdd}
-                className="flex-shrink-0 w-9 h-9 bg-black dark:bg-white text-white dark:text-black hover:bg-[var(--accent-hex)] dark:hover:bg-[var(--accent-hex)] hover:text-white transition-all duration-200 flex items-center justify-center opacity-0 group-hover:opacity-100 translate-x-2 group-hover:translate-x-0"
+                className="flex-shrink-0 w-9 h-9 bg-black dark:bg-white text-white dark:text-black hover:bg-orange-500 dark:hover:bg-orange-500 hover:text-white transition-all duration-200 flex items-center justify-center opacity-0 group-hover:opacity-100 translate-x-2 group-hover:translate-x-0"
             >
                 <ShoppingCart className="w-4 h-4" />
             </button>
@@ -114,7 +114,7 @@ export default function TrendingProducts() {
                         </div>
                         <Link
                             href="/category/polo"
-                            className="mt-8 inline-flex items-center gap-3 bg-black dark:bg-white text-white dark:text-black font-black uppercase tracking-[3px] text-xs px-8 py-4 hover:bg-[var(--accent-hex)] hover:text-white dark:hover:bg-[var(--accent-hex)] dark:hover:text-white transition-all duration-200 self-start"
+                            className="mt-8 inline-flex items-center gap-3 bg-black dark:bg-white text-white dark:text-black font-black uppercase tracking-[3px] text-xs px-8 py-4 hover:bg-orange-500 hover:text-white dark:hover:bg-orange-500 dark:hover:text-white transition-all duration-200 self-start"
                         >
                             Shop All <ArrowRight className="w-4 h-4" />
                         </Link>

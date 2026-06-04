@@ -80,6 +80,17 @@ alter table reviews     enable row level security;
 alter table orders      enable row level security;
 alter table order_items enable row level security;
 
+-- Newsletter Subscribers
+create table if not exists newsletter_subscribers (
+  id            uuid primary key default gen_random_uuid(),
+  email         text unique not null,
+  subscribed_at timestamptz default now()
+);
+
+alter table newsletter_subscribers enable row level security;
+create policy "Insert newsletter" on newsletter_subscribers for insert with check (true);
+create policy "Service role newsletter" on newsletter_subscribers using (true) with check (true);
+
 -- Allow public read on products and reviews
 create policy "Public read products"    on products    for select using (true);
 create policy "Public read reviews"     on reviews     for select using (true);

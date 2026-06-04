@@ -55,7 +55,8 @@ export default function AdminDashboard() {
     const totalProducts = products.length;
     const lowStockCount = products.filter((p) =>
         (p.sizes || []).some(
-            (s: any) => s.inStock && s.stockCount !== undefined && s.stockCount <= 5,
+            (s: any) =>
+                s.inStock && s.stockCount !== undefined && s.stockCount <= 5,
         ),
     ).length;
 
@@ -104,7 +105,11 @@ export default function AdminDashboard() {
     const stats = [
         {
             label: "Total Revenue",
-            value: `₦${totalRevenue.toFixed(2)}`,
+            // value: `₦${totalRevenue.toFixed(2)}`,
+            value: `₦${totalRevenue.toLocaleString(undefined, {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+            })}`,
             icon: DollarSign,
             color: "text-green-600 dark:text-green-400",
             bg: "bg-green-50 dark:bg-green-900/20",
@@ -131,10 +136,17 @@ export default function AdminDashboard() {
         },
         {
             label: "Avg. Order Value",
+            // value:
+            //     totalOrders > 0
+            //         ? `₦${(totalRevenue / totalOrders).toFixed(2)}`
+            //         : "₦0",
             value:
                 totalOrders > 0
-                    ? `₦${(totalRevenue / totalOrders).toFixed(2)}`
-                    : "₦0",
+                    ? `₦${(totalRevenue / totalOrders).toLocaleString("en-NG", {
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2,
+                      })}`
+                    : "₦0.00",
             icon: TrendingUp,
             color: "text-purple-600 dark:text-purple-400",
             bg: "bg-purple-50 dark:bg-purple-900/20",
@@ -231,7 +243,7 @@ export default function AdminDashboard() {
                                 Revenue (Last 7 Days)
                             </h2>
                             <p className="text-sm text-gray-500">
-                                Total: ₦{totalRevenue.toFixed(2)}
+                                Total: ₦{totalRevenue.toLocaleString(2)}
                             </p>
                         </div>
                     </div>
@@ -278,8 +290,7 @@ export default function AdminDashboard() {
                                 contentStyle={{
                                     borderRadius: "16px",
                                     border: "1px solid #f0f0f0",
-                                    boxShadow:
-                                        "0 4px 24px rgba(0,0,0,0.08)",
+                                    boxShadow: "0 4px 24px rgba(0,0,0,0.08)",
                                 }}
                                 formatter={(v) => [
                                     `₦${Number(v ?? 0).toFixed(2)}`,
@@ -324,18 +335,15 @@ export default function AdminDashboard() {
                                         paddingAngle={3}
                                         dataKey="value"
                                     >
-                                        {ordersByStatus.map(
-                                            (entry, index) => (
-                                                <Cell
-                                                    key={index}
-                                                    fill={
-                                                        STATUS_COLORS[
-                                                            entry.name
-                                                        ] || "#6b7280"
-                                                    }
-                                                />
-                                            ),
-                                        )}
+                                        {ordersByStatus.map((entry, index) => (
+                                            <Cell
+                                                key={index}
+                                                fill={
+                                                    STATUS_COLORS[entry.name] ||
+                                                    "#6b7280"
+                                                }
+                                            />
+                                        ))}
                                     </Pie>
                                     <Tooltip
                                         contentStyle={{
@@ -356,9 +364,8 @@ export default function AdminDashboard() {
                                                 className="w-2.5 h-2.5 rounded-full"
                                                 style={{
                                                     background:
-                                                        STATUS_COLORS[
-                                                            s.name
-                                                        ] || "#6b7280",
+                                                        STATUS_COLORS[s.name] ||
+                                                        "#6b7280",
                                                 }}
                                             />
                                             <span className="capitalize text-gray-600 dark:text-gray-400">
@@ -421,10 +428,7 @@ export default function AdminDashboard() {
                                     fontSize: "12px",
                                 }}
                             />
-                            <Bar
-                                dataKey="count"
-                                radius={[0, 8, 8, 0]}
-                            >
+                            <Bar dataKey="count" radius={[0, 8, 8, 0]}>
                                 {productsByCategory.map((_, i) => (
                                     <Cell
                                         key={i}

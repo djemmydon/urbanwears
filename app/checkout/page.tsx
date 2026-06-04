@@ -4,7 +4,15 @@ import { useCartStore } from "@/lib/cartStore";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import Image from "next/image";
-import { Lock, CheckCircle, ShoppingBag, User, Phone, MapPin, Mail } from "lucide-react";
+import {
+    Lock,
+    CheckCircle,
+    ShoppingBag,
+    User,
+    Phone,
+    MapPin,
+    Mail,
+} from "lucide-react";
 import { usePaystack } from "@/hooks/usePaystack";
 import { useUserStore } from "@/lib/userStore";
 import { useAuthStore } from "@/lib/authStore";
@@ -28,7 +36,9 @@ export default function CheckoutPage() {
         address: "",
     });
 
-    useEffect(() => { checkSession(); }, []);
+    useEffect(() => {
+        checkSession();
+    }, []);
 
     // Pre-fill form when user loads
     useEffect(() => {
@@ -51,13 +61,24 @@ export default function CheckoutPage() {
     if (authLoading || !user) {
         return (
             <div className="min-h-screen flex items-center justify-center bg-white">
-                <div style={{ width: 36, height: 36, border: "1.5px solid rgba(0,0,0,0.08)", borderTopColor: "#000", borderRadius: "50%", animation: "spin 0.7s linear infinite" }} />
+                <div
+                    style={{
+                        width: 36,
+                        height: 36,
+                        border: "1.5px solid rgba(0,0,0,0.08)",
+                        borderTopColor: "#000",
+                        borderRadius: "50%",
+                        animation: "spin 0.7s linear infinite",
+                    }}
+                />
                 <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
             </div>
         );
     }
 
-    const total = getTotalPrice();
+    const SHIPPING_FEE = 2500;
+    const subtotal = getTotalPrice();
+    const total = subtotal + SHIPPING_FEE;
     const currency = process.env.NEXT_PUBLIC_PAYSTACK_CURRENCY || "NGN";
 
     const updateForm = (field: string, value: string) =>
@@ -111,7 +132,10 @@ export default function CheckoutPage() {
                         description: `Order #${order.id} confirmed`,
                     });
                 } catch {
-                    toast.error("Something went wrong saving your order. Contact support with reference: " + reference);
+                    toast.error(
+                        "Something went wrong saving your order. Contact support with reference: " +
+                            reference,
+                    );
                 } finally {
                     setIsProcessing(false);
                 }
@@ -130,7 +154,9 @@ export default function CheckoutPage() {
                     <div className="mx-auto w-24 h-24 bg-green-100 dark:bg-green-900/40 rounded-full flex items-center justify-center mb-8">
                         <CheckCircle className="w-14 h-14 text-green-500" />
                     </div>
-                    <h1 className="text-4xl font-bold mb-3">Order Confirmed!</h1>
+                    <h1 className="text-4xl font-bold mb-3">
+                        Order Confirmed!
+                    </h1>
                     <p className="text-gray-500 dark:text-gray-400 mb-2">
                         Thank you, {form.fullName}!
                     </p>
@@ -146,7 +172,7 @@ export default function CheckoutPage() {
                     <div className="flex flex-col gap-3">
                         <button
                             onClick={() => router.push("/orders")}
-                            className="w-full py-4 bg-black dark:bg-white text-white dark:text-black rounded-2xl font-semibold hover:bg-[var(--accent-hex)] hover:text-black transition-all"
+                            className="w-full py-4 bg-black dark:bg-white text-white dark:text-black rounded-2xl font-semibold hover:bg-orange-500 hover:text-white transition-all"
                         >
                             Track My Order
                         </button>
@@ -181,7 +207,8 @@ export default function CheckoutPage() {
                         <div className="space-y-4">
                             <div>
                                 <label className="block text-sm font-medium mb-2">
-                                    Full Name <span className="text-red-500">*</span>
+                                    Full Name{" "}
+                                    <span className="text-red-500">*</span>
                                 </label>
                                 <input
                                     type="text"
@@ -284,7 +311,10 @@ export default function CheckoutPage() {
                                                 {item.quantity}
                                             </p>
                                             <p className="font-bold mt-1">
-                                                ₦{(item.price * item.quantity).toFixed(2)}
+                                                ₦
+                                                {(
+                                                    item.price * item.quantity
+                                                ).toFixed(2)}
                                             </p>
                                         </div>
                                     </div>
@@ -305,23 +335,20 @@ export default function CheckoutPage() {
                             <div className="flex justify-between text-gray-600 dark:text-gray-400">
                                 <span>
                                     Subtotal (
-                                    {items.reduce(
-                                        (s, i) => s + i.quantity,
-                                        0,
-                                    )}{" "}
+                                    {items.reduce((s, i) => s + i.quantity, 0)}{" "}
                                     items)
                                 </span>
-                                <span>₦{total.toFixed(2)}</span>
+                                <span>₦{subtotal.toLocaleString()}</span>
                             </div>
                             <div className="flex justify-between text-gray-600 dark:text-gray-400">
-                                <span>Shipping</span>
-                                <span className="text-green-500 font-medium">
-                                    FREE
+                                <span>Delivery Fee</span>
+                                <span className="font-medium text-gray-900 dark:text-white">
+                                    ₦{SHIPPING_FEE.toLocaleString()}
                                 </span>
                             </div>
                             <div className="flex justify-between font-bold text-2xl pt-4 border-t border-gray-100 dark:border-zinc-700">
                                 <span>Total</span>
-                                <span>₦{total.toFixed(2)}</span>
+                                <span>₦{total.toLocaleString()}</span>
                             </div>
                         </div>
 
@@ -332,17 +359,17 @@ export default function CheckoutPage() {
                                 !paystackLoaded ||
                                 items.length === 0
                             }
-                            className="w-full py-5 bg-[var(--accent-hex)] text-black rounded-2xl font-bold text-lg hover:brightness-110 disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-3 transition-all active:scale-[0.98]"
+                            className="w-full py-5 bg-[var(--accent-hex)] text-white rounded-2xl font-bold text-lg hover:brightness-110 disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-3 transition-all active:scale-[0.98] cursor-pointer"
                         >
                             {isProcessing ? (
                                 <>
-                                    <span className="w-5 h-5 border-2 border-black/30 border-t-black rounded-full animate-spin" />
+                                    <span className="w-5 h-5 border-2 border-white/30 border-t-black rounded-full animate-spin" />
                                     Processing...
                                 </>
                             ) : (
                                 <>
                                     <Lock className="w-5 h-5" />
-                                    Pay ₦{total.toFixed(2)} with Paystack
+                                    Pay ₦{total.toLocaleString()} with Paystack
                                 </>
                             )}
                         </button>

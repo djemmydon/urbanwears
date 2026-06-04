@@ -13,6 +13,11 @@ const TABS = [
     { label: "Polo", value: "polo" },
     { label: "T-Shirt", value: "tshirt" },
     { label: "Hoodie", value: "hoodie" },
+    { label: "Tank Top", value: "Tan top" },
+    { label: "Socks", value: "socks" },
+    { label: "Joggers", value: "joggers" },
+    { label: "2 Piece Set", value: "2 piece set" },
+    { label: "Beanie", value: "beanie Hat" },
 ];
 
 function ProductTile({ product }: { product: Product }) {
@@ -229,7 +234,7 @@ export default function FeaturedCollection() {
                             }}
                             className="feat-view-all"
                         >
-                            View All Products
+                            <span>View All Products</span>
                         </Link>
                     </div>
                 )}
