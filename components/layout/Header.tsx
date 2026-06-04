@@ -1,8 +1,15 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Image from "next/image";
 import {
-    Search, X, ShoppingCart, User, ArrowRight, Heart, LogOut,
+    Search,
+    X,
+    ShoppingCart,
+    User,
+    ArrowRight,
+    Heart,
+    LogOut,
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -47,11 +54,14 @@ export default function Header() {
     const pathname = usePathname();
     const router = useRouter();
 
-    useEffect(() => { checkSession(); }, []);
-
+    useEffect(() => {
+        checkSession();
+    }, []);
 
     useEffect(() => {
-        fetchProducts().then(setAllProducts).catch(() => {});
+        fetchProducts()
+            .then(setAllProducts)
+            .catch(() => {});
     }, []);
 
     useEffect(() => {
@@ -63,17 +73,23 @@ export default function Header() {
     useEffect(() => {
         if (showNav || showSearch) document.body.style.overflow = "hidden";
         else document.body.style.overflow = "";
-        return () => { document.body.style.overflow = ""; };
+        return () => {
+            document.body.style.overflow = "";
+        };
     }, [showNav, showSearch]);
 
     const handleSearch = (q: string) => {
         setSearchQuery(q);
-        if (!q.trim()) { setSearchResults([]); return; }
+        if (!q.trim()) {
+            setSearchResults([]);
+            return;
+        }
         setSearchResults(
             allProducts
-                .filter((p) =>
-                    p.name.toLowerCase().includes(q.toLowerCase()) ||
-                    p.category.toLowerCase().includes(q.toLowerCase()),
+                .filter(
+                    (p) =>
+                        p.name.toLowerCase().includes(q.toLowerCase()) ||
+                        p.category.toLowerCase().includes(q.toLowerCase()),
                 )
                 .slice(0, 8),
         );
@@ -171,15 +187,23 @@ export default function Header() {
                     .pnav-bar{padding:0 20px}
                     .pnav-sbar{padding:0 20px;height:68px}
                     .pnav-sresults{padding:20px}
+                    .pnav-search-btn{display:none!important}
+                    .pnav-right{gap:14px}
                 }
             `}</style>
 
-            <div style={{ "--nb": border, "--sb": sborder } as React.CSSProperties}>
-
+            <div
+                style={
+                    { "--nb": border, "--sb": sborder } as React.CSSProperties
+                }
+            >
                 {/* NAVBAR */}
                 <nav
                     className={`pnav-bar${scrolled ? " sc" : ""}`}
-                    style={{ background: scrolled ? bgScrolled : bg, color: fg }}
+                    style={{
+                        background: scrolled ? bgScrolled : bg,
+                        color: fg,
+                    }}
                 >
                     {/* Left */}
                     <div className="pnav-left">
@@ -189,11 +213,17 @@ export default function Header() {
                             aria-label="Menu"
                             style={{ color: fg }}
                         >
-                            <s /><s /><s />
+                            <s />
+                            <s />
+                            <s />
                         </button>
                         <div className="pnav-links">
                             {NAV_LINKS.map(({ label, href }) => (
-                                <Link key={label} href={href} className="pnav-link">
+                                <Link
+                                    key={label}
+                                    href={href}
+                                    className="pnav-link"
+                                >
                                     {label}
                                 </Link>
                             ))}
@@ -202,7 +232,11 @@ export default function Header() {
 
                     {/* Center — logo */}
                     <div className="pnav-center">
-                        <Link href="/" className="pnav-brand" style={{ color: "#000" }}>
+                        <Link
+                            href="/"
+                            className="pnav-brand"
+                            style={{ color: "#000" }}
+                        >
                             URBANBLAQ
                         </Link>
                     </div>
@@ -210,7 +244,7 @@ export default function Header() {
                     {/* Right */}
                     <div className="pnav-right">
                         <button
-                            className="pnav-icon"
+                            className="pnav-icon pnav-search-btn"
                             onClick={() => setShowSearch(true)}
                             aria-label="Search"
                             style={{ color: fg }}
@@ -220,7 +254,10 @@ export default function Header() {
                         {user ? (
                             <button
                                 className="pnav-icon"
-                                onClick={async () => { await logout(); router.push("/"); }}
+                                onClick={async () => {
+                                    await logout();
+                                    router.push("/");
+                                }}
                                 aria-label="Logout"
                                 style={{ color: fg }}
                                 title={`Signed in as ${user.email}`}
@@ -228,11 +265,21 @@ export default function Header() {
                                 <LogOut size={18} strokeWidth={1.5} />
                             </button>
                         ) : (
-                            <Link href="/login" className="pnav-icon" aria-label="Sign in" style={{ color: fg }}>
+                            <Link
+                                href="/login"
+                                className="pnav-icon"
+                                aria-label="Sign in"
+                                style={{ color: fg }}
+                            >
                                 <User size={18} strokeWidth={1.5} />
                             </Link>
                         )}
-                        <Link href="/wishlist" className="pnav-icon" aria-label="Wishlist" style={{ color: fg }}>
+                        <Link
+                            href="/wishlist"
+                            className="pnav-icon"
+                            aria-label="Wishlist"
+                            style={{ color: fg }}
+                        >
                             <Heart size={18} strokeWidth={1.5} />
                             {wishlistItems.length > 0 && (
                                 <span
@@ -243,7 +290,10 @@ export default function Header() {
                                 </span>
                             )}
                         </Link>
-                        <div className="pnav-icon" style={{ position: "relative" }}>
+                        <div
+                            className="pnav-icon"
+                            style={{ position: "relative" }}
+                        >
                             <button
                                 className="pnav-icon"
                                 onClick={openCart}
@@ -273,7 +323,11 @@ export default function Header() {
                 {/* DRAWER */}
                 <div className={`pnav-drawer${showNav ? " on" : ""}`}>
                     <div className="pnav-dtop">
-                        <Link href="/" className="pnav-dlogo" onClick={() => setShowNav(false)}>
+                        <Link
+                            href="/"
+                            className="pnav-dlogo"
+                            onClick={() => setShowNav(false)}
+                        >
                             URBANBLAQ
                         </Link>
                         <button
@@ -299,14 +353,30 @@ export default function Header() {
                         {user ? (
                             <button
                                 className="pnav-dlink"
-                                style={{ background: "none", border: "none", cursor: "pointer", width: "100%", textAlign: "left", color: "#dc2626", fontFamily: "'Bebas Neue',sans-serif" }}
-                                onClick={async () => { setShowNav(false); await logout(); router.push("/"); }}
+                                style={{
+                                    background: "none",
+                                    border: "none",
+                                    cursor: "pointer",
+                                    width: "100%",
+                                    textAlign: "left",
+                                    color: "#dc2626",
+                                    fontFamily: "'Bebas Neue',sans-serif",
+                                }}
+                                onClick={async () => {
+                                    setShowNav(false);
+                                    await logout();
+                                    router.push("/");
+                                }}
                             >
                                 Sign Out
                                 <LogOut size={18} strokeWidth={1} />
                             </button>
                         ) : (
-                            <Link href="/login" className="pnav-dlink" onClick={() => setShowNav(false)}>
+                            <Link
+                                href="/login"
+                                className="pnav-dlink"
+                                onClick={() => setShowNav(false)}
+                            >
                                 Sign In
                                 <ArrowRight size={18} strokeWidth={1} />
                             </Link>
@@ -320,7 +390,11 @@ export default function Header() {
                     style={{ background: "#fff", color: "#000" }}
                 >
                     <div className="pnav-sbar">
-                        <Search size={20} strokeWidth={1.5} style={{ opacity: 0.4, flexShrink: 0 }} />
+                        <Search
+                            size={20}
+                            strokeWidth={1.5}
+                            style={{ opacity: 0.4, flexShrink: 0 }}
+                        />
                         <input
                             className="pnav-sinput"
                             type="text"
@@ -342,29 +416,64 @@ export default function Header() {
                         </button>
                     </div>
                     <div className="pnav-sresults">
-                        {searchResults.length > 0
-                            ? searchResults.map((p) => (
-                                  <button
-                                      key={p.id}
-                                      className="pnav-sitem"
-                                      onClick={() => handleSelectResult(p.id)}
-                                      style={{ width: "100%", textAlign: "left", background: "none", border: "none", cursor: "pointer" }}
-                                  >
-                                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                                      <img src={p.image} alt={p.name} className="pnav-sitem-img" />
-                                      <div style={{ flex: 1, minWidth: 0 }}>
-                                          <div style={{ fontWeight: 500, fontSize: 13 }}>{p.name}</div>
-                                          <div style={{ fontSize: 12, opacity: 0.45, marginTop: 3, fontFamily: "'Bebas Neue',sans-serif", letterSpacing: "0.05em" }}>
-                                              ₦{p.price.toLocaleString()}
-                                          </div>
-                                      </div>
-                                      <ArrowRight size={14} strokeWidth={1.5} style={{ opacity: 0.35, flexShrink: 0 }} />
-                                  </button>
-                              ))
-                            : searchQuery
-                            ? <p className="pnav-sempty">No results for &ldquo;{searchQuery}&rdquo;</p>
-                            : <p className="pnav-sempty">Start typing to search...</p>
-                        }
+                        {searchResults.length > 0 ? (
+                            searchResults.map((p) => (
+                                <button
+                                    key={p.id}
+                                    className="pnav-sitem"
+                                    onClick={() => handleSelectResult(p.id)}
+                                    style={{
+                                        width: "100%",
+                                        textAlign: "left",
+                                        background: "none",
+                                        border: "none",
+                                        cursor: "pointer",
+                                    }}
+                                >
+                                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                                    <img
+                                        src={p.image}
+                                        alt={p.name}
+                                        className="pnav-sitem-img"
+                                    />
+                                    <div style={{ flex: 1, minWidth: 0 }}>
+                                        <div
+                                            style={{
+                                                fontWeight: 500,
+                                                fontSize: 13,
+                                            }}
+                                        >
+                                            {p.name}
+                                        </div>
+                                        <div
+                                            style={{
+                                                fontSize: 12,
+                                                opacity: 0.45,
+                                                marginTop: 3,
+                                                fontFamily:
+                                                    "'Bebas Neue',sans-serif",
+                                                letterSpacing: "0.05em",
+                                            }}
+                                        >
+                                            ₦{p.price.toLocaleString()}
+                                        </div>
+                                    </div>
+                                    <ArrowRight
+                                        size={14}
+                                        strokeWidth={1.5}
+                                        style={{ opacity: 0.35, flexShrink: 0 }}
+                                    />
+                                </button>
+                            ))
+                        ) : searchQuery ? (
+                            <p className="pnav-sempty">
+                                No results for &ldquo;{searchQuery}&rdquo;
+                            </p>
+                        ) : (
+                            <p className="pnav-sempty">
+                                Start typing to search...
+                            </p>
+                        )}
                     </div>
                 </div>
             </div>

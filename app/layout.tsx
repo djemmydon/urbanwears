@@ -20,8 +20,9 @@ const cormorant = Cormorant_Garamond({
 
 export const metadata: Metadata = {
     title: "URBANBLAQ | Urbanblaqluxury — Premium Polos, T-Shirts & Hoodies",
-    description: "Urbanblaqluxury — premium essentials for the modern wardrobe.",
-    icons: { icon: "/favicon.ico" },
+    description:
+        "Urbanblaqluxury — premium essentials for the modern wardrobe.",
+    icons: { icon: "/images/logo.png" },
 };
 
 export default function RootLayout({
@@ -39,7 +40,9 @@ export default function RootLayout({
                     }}
                 />
             </head>
-            <body className={`${jakarta.variable} ${cormorant.variable} font-sans antialiased`}>
+            <body
+                className={`${jakarta.variable} ${cormorant.variable} font-sans antialiased`}
+            >
                 <StoreShell>{children}</StoreShell>
                 <Toaster position="top-center" richColors closeButton />
             </body>

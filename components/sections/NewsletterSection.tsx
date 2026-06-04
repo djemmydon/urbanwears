@@ -31,7 +31,7 @@ export default function NewsletterSection() {
 
     return (
         <section style={{ padding: "48px 24px" }}>
-            <div style={{
+            <div className="nl-card" style={{
                 maxWidth: 900,
                 margin: "0 auto",
                 background: "#000",
@@ -78,8 +78,9 @@ export default function NewsletterSection() {
                         ✓ You&apos;re in! Check your inbox.
                     </div>
                 ) : (
-                    <form onSubmit={handleSubmit} style={{ display: "flex", gap: 0, maxWidth: 440, margin: "0 auto" }}>
+                    <form className="nl-form" onSubmit={handleSubmit} style={{ display: "flex", gap: 0, maxWidth: 440, margin: "0 auto" }}>
                         <input
+                            className="nl-input"
                             type="email"
                             required
                             value={email}
@@ -97,6 +98,7 @@ export default function NewsletterSection() {
                             }}
                         />
                         <button
+                            className="nl-btn"
                             type="submit"
                             disabled={loading}
                             style={{
@@ -125,6 +127,15 @@ export default function NewsletterSection() {
                     No spam, unsubscribe at any time.
                 </p>
             </div>
+
+            <style>{`
+                @media (max-width: 600px) {
+                    .nl-card { padding: 40px 20px !important; border-radius: 16px !important; }
+                    .nl-form { flex-direction: column !important; }
+                    .nl-input { border-right: 1px solid rgba(255,255,255,0.15) !important; border-bottom: none !important; }
+                    .nl-btn { width: 100% !important; justify-content: center !important; padding: 14px !important; }
+                }
+            `}</style>
         </section>
     );
 }

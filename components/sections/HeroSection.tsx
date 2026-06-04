@@ -56,7 +56,7 @@ export default function HeroSection() {
     const slide = SLIDES[active];
 
     return (
-        <section style={{ background: "#fff" }}>
+        <section style={{ background: "#fff", overflowX: "hidden" }}>
             {/* Main hero split */}
             <div style={{
                 display: "grid",
@@ -288,11 +288,13 @@ export default function HeroSection() {
                         min-height: unset !important;
                     }
                     .hero-grid > div:first-child {
-                        min-height: 75vw;
-                        aspect-ratio: unset;
-                        height: 72vw;
+                        width: 100% !important;
+                        height: 72vw !important;
+                        min-height: unset !important;
+                        aspect-ratio: unset !important;
                     }
                     .hero-grid > div:last-child {
+                        width: 100% !important;
                         padding: 36px 24px 56px !important;
                     }
                 }

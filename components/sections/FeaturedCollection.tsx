@@ -148,12 +148,12 @@ export default function FeaturedCollection() {
     }, [activeTab, allProducts]);
 
     return (
-        <section id="shop" style={{ background: "#fff", padding: "72px 0" }}>
+        <section id="shop" style={{ background: "#fff", padding: "72px 0", overflowX: "hidden" }}>
             <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 24px" }}>
                 {/* Header */}
                 <div style={{
                     display: "flex", alignItems: "flex-end",
-                    justifyContent: "space-between", gap: 20,
+                    justifyContent: "space-between", gap: 16,
                     marginBottom: 36, flexWrap: "wrap",
                 }}>
                     <div>
@@ -174,8 +174,8 @@ export default function FeaturedCollection() {
                         </h2>
                     </div>
 
-                    {/* Filter tabs */}
-                    <div style={{ display: "flex", gap: 0, border: "1px solid rgba(0,0,0,0.12)" }}>
+                    {/* Filter tabs — desktop */}
+                    <div className="feat-tabs" style={{ display: "flex", gap: 0, border: "1px solid rgba(0,0,0,0.12)" }}>
                         {TABS.map((tab) => (
                             <button
                                 key={tab.value}
@@ -197,6 +197,31 @@ export default function FeaturedCollection() {
                             </button>
                         ))}
                     </div>
+
+                    {/* Filter dropdown — mobile */}
+                    <select
+                        className="feat-select"
+                        value={activeTab}
+                        onChange={(e) => setActiveTab(e.target.value)}
+                        style={{
+                            display: "none",
+                            fontFamily: "'Barlow', sans-serif",
+                            fontSize: 12, fontWeight: 500, letterSpacing: "0.1em",
+                            textTransform: "uppercase",
+                            border: "1px solid rgba(0,0,0,0.2)",
+                            padding: "10px 16px",
+                            background: "#fff", color: "#000",
+                            cursor: "pointer", outline: "none",
+                            width: "100%", maxWidth: 280,
+                            borderRadius: 0,
+                        }}
+                    >
+                        {TABS.map((tab) => (
+                            <option key={tab.value} value={tab.value}>
+                                {tab.label || "All"}
+                            </option>
+                        ))}
+                    </select>
                 </div>
 
                 {/* Product grid */}
@@ -260,8 +285,14 @@ export default function FeaturedCollection() {
                 .feat-skel { background: linear-gradient(90deg, #f0f0f0 25%, #f8f8f8 50%, #f0f0f0 75%); background-size: 200% 100%; animation: feat-shimmer 1.4s infinite; }
                 @keyframes feat-shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
 
-                @media (max-width: 480px) { .feat-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 10px !important; } }
-                @media (min-width: 481px) and (max-width: 768px) { .feat-grid { grid-template-columns: repeat(2, 1fr) !important; } }
+                @media (max-width: 768px) {
+                    .feat-tabs { display: none !important; }
+                    .feat-select { display: block !important; }
+                    .feat-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 12px !important; }
+                }
+                @media (max-width: 480px) {
+                    .feat-grid { grid-template-columns: 1fr !important; gap: 20px !important; }
+                }
                 @media (min-width: 769px) and (max-width: 1024px) { .feat-grid { grid-template-columns: repeat(3, 1fr) !important; } }
             `}</style>
         </section>
