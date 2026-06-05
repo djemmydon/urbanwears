@@ -64,11 +64,7 @@ export default function ShopPage() {
             <style>{`
                 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&display=swap');
                 .shop-page { font-family: 'Barlow', sans-serif; }
-                .shop-hero {
-                    background: #000; color: #fff;
-                    padding: 60px 24px 48px;
-                    border-bottom: 1px solid rgba(255,255,255,0.06);
-                }
+                .shop-hero { width: 100%; }
                 .shop-hero-title {
                     font-family: 'Bebas Neue', sans-serif;
                     font-size: clamp(52px, 10vw, 96px);
@@ -77,23 +73,32 @@ export default function ShopPage() {
                 }
                 .shop-hero-title em { font-style: normal; -webkit-text-stroke: 1.5px rgba(255,255,255,0.5); color: transparent; }
 
-                .shop-tabs { display: flex; gap: 0; border-bottom: 1px solid rgba(0,0,0,0.08); }
+                .shop-tabs { display: flex; gap: 0; border-bottom: none; overflow-x: auto; scrollbar-width: none; }
+                .shop-tabs::-webkit-scrollbar { display: none; }
                 .shop-tab {
                     padding: 14px 24px; background: none; border: none;
                     font-family: 'Barlow', sans-serif;
                     font-size: 11px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase;
-                    cursor: pointer; color: #000; opacity: 0.35;
+                    cursor: pointer; color: #000; opacity: 0.35; white-space: nowrap;
                     border-bottom: 2px solid transparent; margin-bottom: -1px;
-                    transition: all 0.2s;
+                    transition: all 0.2s; flex-shrink: 0;
                 }
                 .shop-tab.active { opacity: 1; border-bottom-color: #000; }
                 .shop-tab:hover:not(.active) { opacity: 0.65; }
+                .shop-tabs-mobile { display: none; }
+                @media (max-width: 640px) {
+                    .shop-tabs { display: none; }
+                    .shop-tabs-mobile { display: block; width: 100%; }
+                    .shop-hero-inner { padding: 48px 20px 36px !important; }
+                    .shop-grid { grid-template-columns: 1fr !important; gap: 0 !important; }
+                    .shop-page-inner { padding-bottom: 60px !important; }
+                }
 
                 .shop-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2px; }
                 @media (min-width: 640px) { .shop-grid { grid-template-columns: repeat(3, 1fr); } }
                 @media (min-width: 1024px) { .shop-grid { grid-template-columns: repeat(4, 1fr); } }
 
-                .shop-card { position: relative; overflow: hidden; background: #f2f2f2; cursor: pointer; }
+                .shop-card { position: relative; overflow: hidden; background: #f2f2f2; cursor: pointer; border-bottom: 2px solid #fff; }
                 .shop-card-img { aspect-ratio: 3/4; overflow: hidden; position: relative; }
                 .shop-card-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.7s cubic-bezier(0.16,1,0.3,1); }
                 .shop-card:hover .shop-card-img img { transform: scale(1.07); }
@@ -138,24 +143,27 @@ export default function ShopPage() {
                 }
             `}</style>
 
-            <div className="shop-page">
-                {/* Hero */}
-                <div className="shop-hero max-w-7xl mx-auto">
-                    <p style={{ fontSize: 10, letterSpacing: "0.35em", textTransform: "uppercase", opacity: 0.4, marginBottom: 16, fontWeight: 300 }}>
-                        All Collections
-                    </p>
-                    <h1 className="shop-hero-title">
-                        SHOP<br /><em>ALL</em>
-                    </h1>
-                    <p style={{ fontSize: 14, fontWeight: 300, opacity: 0.5, maxWidth: 360, lineHeight: 1.7 }}>
-                        Premium polos, tees & hoodies — {allProducts.length} pieces available.
-                    </p>
+            <div className="shop-page" style={{ overflowX: "hidden" }}>
+                {/* Hero — full-width black band */}
+                <div className="shop-hero" style={{ background: "#000", color: "#fff", borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
+                    <div className="shop-hero-inner max-w-7xl mx-auto" style={{ padding: "60px 24px 48px" }}>
+                        <p style={{ fontSize: 10, letterSpacing: "0.35em", textTransform: "uppercase", opacity: 0.4, marginBottom: 16, fontWeight: 300 }}>
+                            All Collections
+                        </p>
+                        <h1 className="shop-hero-title">
+                            SHOP<br /><em>ALL</em>
+                        </h1>
+                        <p style={{ fontSize: 14, fontWeight: 300, opacity: 0.5, maxWidth: 360, lineHeight: 1.7 }}>
+                            Premium polos, tees & hoodies — {allProducts.length} pieces available.
+                        </p>
+                    </div>
                 </div>
 
-                <div className="max-w-7xl mx-auto">
+                <div className="shop-page-inner max-w-7xl mx-auto" style={{ paddingBottom: 80 }}>
                     {/* Tabs + Sort */}
-                    <div className="flex items-center justify-between flex-wrap gap-3 pr-4 md:pr-6 bg-white" style={{ borderBottom: "1px solid rgba(0,0,0,0.08)" }}>
-                        <div className="shop-tabs" style={{ borderBottom: "none" }}>
+                    <div style={{ borderBottom: "1px solid rgba(0,0,0,0.08)", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, paddingRight: 16 }}>
+                        {/* Desktop tabs */}
+                        <div className="shop-tabs">
                             {TABS.map((tab) => (
                                 <button
                                     key={tab.value}
@@ -166,6 +174,17 @@ export default function ShopPage() {
                                 </button>
                             ))}
                         </div>
+                        {/* Mobile category select */}
+                        <select
+                            className="shop-tabs-mobile shop-sort"
+                            value={activeTab}
+                            onChange={(e) => setActiveTab(e.target.value)}
+                            style={{ flex: 1, maxWidth: 180 }}
+                        >
+                            {TABS.map((tab) => (
+                                <option key={tab.value} value={tab.value}>{tab.label || "All"}</option>
+                            ))}
+                        </select>
                         <select
                             className="shop-sort"
                             value={sort}
