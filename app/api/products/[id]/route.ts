@@ -30,6 +30,22 @@ export async function DELETE(
 ) {
     const { id } = await params;
     const supabase = createServerSupabase();
+
+    // Keep historical orders intact when a product is removed. The order item
+    // stores a snapshot of the product, so its foreign-key reference can be
+    // cleared without deleting the order or its line item.
+    const { error: referencesError } = await supabase
+        .from("order_items")
+        .update({ product_id: null })
+        .eq("product_id", id);
+
+    if (referencesError) {
+        return NextResponse.json(
+            { error: referencesError.message },
+            { status: 500 },
+        );
+    }
+
     const { error } = await supabase.from("products").delete().eq("id", id);
     if (error) {
         return NextResponse.json({ error: error.message }, { status: 500 });

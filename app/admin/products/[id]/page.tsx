@@ -69,7 +69,10 @@ export default function ProductDetailPage() {
         setDeleting(true);
         try {
             const res = await fetch(`/api/products/${id}`, { method: "DELETE" });
-            if (!res.ok) throw new Error("Failed to delete product");
+            if (!res.ok) {
+                const body = await res.json().catch(() => null);
+                throw new Error(body?.error || "Failed to delete product");
+            }
             router.push("/admin/products");
         } catch (e: any) {
             setError(e.message);

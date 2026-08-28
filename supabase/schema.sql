@@ -51,7 +51,8 @@ create table if not exists orders (
 create table if not exists order_items (
   id         uuid primary key default gen_random_uuid(),
   order_id   text references orders(id) on delete cascade,
-  product_id text references products(id),
+  -- Nullable so deleting a product preserves the historical order item.
+  product_id text references products(id) on delete set null,
   name       text not null,
   size       text not null,
   color      text not null,
