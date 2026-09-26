@@ -56,6 +56,9 @@ export interface Order {
     address?: string;
     items: CartItem[];
     order_items?: OrderItemDB[];
+    subtotal?: number;
+    shipping_fee?: number;
+    transaction_fee?: number;
     total: number;
     status: "pending" | "paid" | "shipped" | "delivered" | "cancelled";
     orderDate?: string;

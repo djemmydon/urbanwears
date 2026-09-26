@@ -204,9 +204,29 @@ export default function OrderDetailPage() {
                             ))}
                         </div>
                         {/* Total */}
-                        <div className="mt-5 pt-4 border-t border-gray-100 dark:border-zinc-800 flex justify-between items-center">
-                            <span className="text-sm text-gray-500">Order Total</span>
-                            <span className="text-xl font-bold">₦{(order.total || 0).toFixed(2)}</span>
+                        <div className="mt-5 pt-4 border-t border-gray-100 dark:border-zinc-800 space-y-2">
+                            {order.subtotal != null && (
+                                <div className="flex justify-between items-center text-sm text-gray-500">
+                                    <span>Subtotal</span>
+                                    <span>₦{Number(order.subtotal).toFixed(2)}</span>
+                                </div>
+                            )}
+                            {order.shipping_fee != null && (
+                                <div className="flex justify-between items-center text-sm text-gray-500">
+                                    <span>Delivery Fee</span>
+                                    <span>₦{Number(order.shipping_fee).toFixed(2)}</span>
+                                </div>
+                            )}
+                            {order.transaction_fee != null && (
+                                <div className="flex justify-between items-center text-sm text-gray-500">
+                                    <span>Transaction Fee (Paystack)</span>
+                                    <span>₦{Number(order.transaction_fee).toFixed(2)}</span>
+                                </div>
+                            )}
+                            <div className="flex justify-between items-center pt-2">
+                                <span className="text-sm text-gray-500">Order Total</span>
+                                <span className="text-xl font-bold">₦{(order.total || 0).toFixed(2)}</span>
+                            </div>
                         </div>
                     </div>
                 </div>

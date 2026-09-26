@@ -39,6 +39,10 @@ create table if not exists orders (
   full_name         text,
   phone             text,
   address           text,
+  subtotal          numeric(10,2),
+  shipping_fee      numeric(10,2),
+  -- Paystack charge passed on to the customer; included in total.
+  transaction_fee   numeric(10,2),
   total             numeric(10,2) not null,
   status            text default 'pending',
   payment_method    text default 'paystack',
@@ -100,3 +104,8 @@ create policy "Insert reviews"          on reviews     for insert with check (tr
 -- Orders only via service role (server-side API routes)
 create policy "Service role orders"     on orders      using (true) with check (true);
 create policy "Service role order_items" on order_items using (true) with check (true);
+
+-- Backfill for databases created before the fee breakdown was stored
+alter table orders add column if not exists subtotal        numeric(10,2);
+alter table orders add column if not exists shipping_fee    numeric(10,2);
+alter table orders add column if not exists transaction_fee numeric(10,2);

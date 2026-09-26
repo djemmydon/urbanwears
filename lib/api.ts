@@ -68,6 +68,9 @@ export async function fetchOrders(email?: string): Promise<Order[]> {
 
 export async function createOrder(data: {
     items: CartItem[];
+    subtotal: number;
+    shippingFee: number;
+    transactionFee: number;
     total: number;
     email: string;
     fullName: string;

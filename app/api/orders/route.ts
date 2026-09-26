@@ -27,6 +27,9 @@ export async function POST(request: Request) {
     const body = await request.json();
     const {
         items,
+        subtotal,
+        shippingFee,
+        transactionFee,
         total,
         email,
         fullName,
@@ -46,6 +49,9 @@ export async function POST(request: Request) {
             full_name: fullName,
             phone,
             address,
+            subtotal,
+            shipping_fee: shippingFee,
+            transaction_fee: transactionFee,
             total,
             status: "paid",
             payment_method: "paystack",

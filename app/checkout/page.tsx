@@ -17,6 +17,7 @@ import { usePaystack } from "@/hooks/usePaystack";
 import { useUserStore } from "@/lib/userStore";
 import { useAuthStore } from "@/lib/authStore";
 import { createOrder, verifyPayment } from "@/lib/api";
+import { orderTotals } from "@/lib/fees";
 
 export default function CheckoutPage() {
     // ── ALL hooks must be at the top, before any conditional return ──
@@ -76,9 +77,10 @@ export default function CheckoutPage() {
         );
     }
 
-    const SHIPPING_FEE = 2500;
-    const subtotal = getTotalPrice();
-    const total = subtotal + SHIPPING_FEE;
+    const { subtotal, shippingFee, transactionFee, total } = orderTotals(
+        getTotalPrice(),
+        items.length > 0,
+    );
     const currency = process.env.NEXT_PUBLIC_PAYSTACK_CURRENCY || "NGN";
 
     const updateForm = (field: string, value: string) =>
@@ -107,6 +109,9 @@ export default function CheckoutPage() {
                     // 2. Save order to Supabase
                     const order = await createOrder({
                         items,
+                        subtotal,
+                        shippingFee,
+                        transactionFee,
                         total,
                         email: form.email,
                         fullName: form.fullName,
@@ -343,7 +348,18 @@ export default function CheckoutPage() {
                             <div className="flex justify-between text-gray-600 dark:text-gray-400">
                                 <span>Delivery Fee</span>
                                 <span className="font-medium text-gray-900 dark:text-white">
-                                    ₦{SHIPPING_FEE.toLocaleString()}
+                                    ₦{shippingFee.toLocaleString()}
+                                </span>
+                            </div>
+                            <div className="flex justify-between text-gray-600 dark:text-gray-400">
+                                <span>
+                                    Transaction Fee
+                                    <span className="block text-xs text-gray-400">
+                                        Paystack processing charge
+                                    </span>
+                                </span>
+                                <span className="font-medium text-gray-900 dark:text-white">
+                                    ₦{transactionFee.toLocaleString()}
                                 </span>
                             </div>
                             <div className="flex justify-between font-bold text-2xl pt-4 border-t border-gray-100 dark:border-zinc-700">

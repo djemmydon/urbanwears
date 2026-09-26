@@ -6,8 +6,7 @@ import { X, Plus, Minus, ShoppingBag, Trash2, ArrowRight, Tag } from "lucide-rea
 import { toast } from "sonner";
 import { useEffect, useRef } from "react";
 import { useAuthStore } from "@/lib/authStore";
-
-const SHIPPING_FEE = 2500;
+import { SHIPPING_FEE, orderTotals } from "@/lib/fees";
 
 export default function CartModal({
     isOpen,
@@ -35,9 +34,12 @@ export default function CartModal({
         return () => { document.body.style.overflow = ""; };
     }, [isOpen]);
 
-    const subtotal = getTotalPrice();
-    const shipping = items.length === 0 ? 0 : SHIPPING_FEE;
-    const total = subtotal + shipping;
+    const {
+        subtotal,
+        shippingFee: shipping,
+        transactionFee,
+        total,
+    } = orderTotals(getTotalPrice(), items.length > 0);
     const itemCount = items.reduce((s, i) => s + i.quantity, 0);
 
     const handleCheckout = () => {
@@ -237,6 +239,12 @@ export default function CartModal({
                                 <span>Delivery Fee</span>
                                 <span className="font-medium text-gray-900 dark:text-white">
                                     ₦{shipping.toLocaleString()}
+                                </span>
+                            </div>
+                            <div className="flex justify-between text-sm text-gray-500">
+                                <span>Transaction Fee</span>
+                                <span className="font-medium text-gray-900 dark:text-white">
+                                    ₦{transactionFee.toLocaleString()}
                                 </span>
                             </div>
                             <div className="flex justify-between items-center pt-2 border-t border-gray-100 dark:border-zinc-800">
